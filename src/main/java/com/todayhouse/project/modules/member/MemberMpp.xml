@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todayhouse.project.modules.member.MemberMpp">
+
+    <resultMap id="resultMapObj" type="com.todayhouse.project.modules.member.Member"></resultMap> <!--  mybatis인가 이거 사용해주기 위해 쓰는거임 -->
+
+	<select id="selectList" resultMap="resultMapObj">
+			select
+				ifmmSeq
+				, ifmmId
+				, ifmmName
+			from
+				infrMember
+	</select>
+	
+	<insert id="insert">
+			insert into infrMember (
+				ifmmId
+				,ifmmName
+				,ifmmDelNy
+			) values (
+				#{ifmmId}
+				,#{ifmmName}
+				,0
+			) 
+	</insert>
+	
+		<select id="selectOne" resultMap="resultMapObj">
+		select
+			a.ifmmSeq
+		    , a.ifmmId
+		    , a.ifmmName
+		from
+			infrMember a
+		where 1=1
+			and ifmmSeq = #{ifmmSeq}
+	</select>
+	
+	<update id="update">
+			UPDATE
+				infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임  -->
+			SET 
+				ifmmName = #{ifmmName} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
+				,ifmmId = #{ifmmId}
+			WHERE 1=1
+				AND ifmmSeq = #{ifmmSeq}
+	</update>
+</mapper>
