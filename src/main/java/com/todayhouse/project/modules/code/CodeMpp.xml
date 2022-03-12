@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.todayhouse.project.modules.code.CodeMpp"> <!-- 파일을 지칭 -->
+
+    <resultMap id="resultMapObj" type="com.todayhouse.project.modules.code.Code"></resultMap> <!--  mybatis인가 이거 사용해주기 위해 쓰는거임 결과의 객체를 지칭 -->
+
+
+
+
+	<!-- infrCodeGroup  -->
+	<select id="selectList" resultMap="resultMapObj">
+			 SELECT 
+					a.ifcgSeq
+					, a.ifcgName
+					, a.ifcgDelNy
+			 FROM 
+					infrCodeGroup a <!-- 여기 앞에 .alpha 를 넣으니까 404오류떳엇음 첫번째  -->
+			 WHERE 1=1
+			 			AND ifcgDelNy = 0
+			 	<choose>
+					<when test="shIfcgDelNy == 1">AND ifcgDelNy = 1</when>
+					<when test="shIfcgDelNy ==0">And ifcgDelNy = 0</when>
+				</choose>	
+				 <if test="shIfcgName != null and !shIfcgName.equals('')"> AND ifcgName LIKE concat('%',#{shIfcgName}, '%')</if>
+	</select>
+
+	<insert id="insert">
+			INSERT INTO infrCodeGroup(
+				ifcgName
+				,ifcgDelNy
+			) VALUES (
+				#{ifcgName}
+				,0
+			)
+	</insert>
+	
+	<select id="selectOne" resultMap="resultMapObj">
+		select
+			a.ifcgSeq
+		    , a.ifcgName
+		    , a.ifcgDelNy
+		from
+			infrCodeGroup a
+		where 1=1
+			and ifcgSeq = #{ifcgSeq}
+	</select>
+	
+	<update id="update">
+			UPDATE
+				infrCodeGroup  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임  -->
+			SET 
+				ifcgName = #{ifcgName}
+			WHERE 1=1
+				AND ifcgSeq = #{ifcgSeq}
+	</update>
+	
+	<!-- infrCode  -->
+	<select id="selectListCode" resultMap="resultMapObj">
+			 SELECT 
+					a.ifcdSeq
+					, a.ifcdName
+					, a.ifcdDelNy
+			 FROM 
+					infrCode a <!-- 여기 앞에 .alpha 를 넣으니까 404오류떳엇음 첫번째  -->
+			 WHERE 1=1
+					AND ifcdDelNy = 0
+					 <if test="shIfcgSeq != null and !shIfcgSeq.equals('')"> AND ifcgSeq =(#{shIfcgSeq})</if>
+	</select>
+
+	<insert id="insertCode">
+			INSERT INTO infrCode(
+				ifcdName
+				,ifcdDelNy
+				,ifcgSeq
+			) VALUES (
+				#{ifcdName}
+				,0
+				,#{ifcgSeq}
+			)
+	</insert>
+	
+	<select id="selectOneCode" resultMap="resultMapObj">
+		select
+			a.ifcdSeq
+		    , a.ifcdName
+		    , a.ifcdDelNy
+		from
+			infrCode a
+		where 1=1
+			and ifcdSeq = #{ifcdSeq}
+			
+	</select>
+	
+	<update id="updateCode">
+			UPDATE
+				infrCode  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임  -->
+			SET 
+				ifcdName = #{ifcdName}
+			WHERE 1=1
+				AND ifcdSeq = #{ifcdSeq}
+	</update>
+	
+	
+	
+	
+</mapper>
