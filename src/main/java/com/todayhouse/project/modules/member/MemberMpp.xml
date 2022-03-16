@@ -6,47 +6,92 @@
 
 <mapper namespace="com.todayhouse.project.modules.member.MemberMpp">
 
-    <resultMap id="resultMapObj" type="com.todayhouse.project.modules.member.Member"></resultMap> <!--  mybatis인가 이거 사용해주기 위해 쓰는거임 -->
+	<resultMap id="resultMapObj" type="com.todayhouse.project.modules.member.Member"></resultMap> <!-- mybatis인가 이거 사용해주기 위해 쓰는거임 -->
 
-	<select id="selectList" resultMap="resultMapObj">
-			select
-				ifmmSeq
-				, ifmmId
-				, ifmmName
-			from
-				infrMember
+
+
+
+	<sql id="selectCommon">
+<!-- 		 FROM  
+				infrMember a 여기 앞에 .alpha 를 넣으니까 404오류떳엇음 첫번째  
+		 WHERE 1=1
+		 		AND ifmmDelNy = 0 -->
+		FROM 
+		infrMember a
+		LEFT JOIN
+				infrMemberPhone b ON a.ifmmSeq = b.ifmmSeq
+		LEFT JOIN 
+				infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq
+		WHERE 1=1
+			<choose>
+			<when test="shOption == 1">AND a.ifmmName LIKE concat('%',#{shValue}, '%')</when>
+			<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shValue}, '%')</when>
+			<when test="shOption == 3">AND b.ifmpNumber LIKE concat('%',#{shValue}, '%')</when>
+			<when test="shOption == 4">AND c.ifmeEmailFull LIKE concat('%',#{shValue}, '%')</when>
+			</choose>
+		
+	</sql>
+
+	<select id="selectOneCount" resultType="Integer">
+		SELECT
+			count(*)
+		<include refid="selectCommon" />
+
 	</select>
-	
+
+	 <select id="selectList" resultMap="resultMapObj">
+		
+		SELECT		
+		a.ifmmSeq
+		,a.ifmmName
+		,a.ifmmId
+		,a.ifmmDelNy
+		,b.ifmpNumber
+		,c.ifmeEmailFull
+		,a.regDateTime
+			<include refid="selectCommon"/> 
+			limit #{startRnumForMysql}, #{rowNumToShow}
+	</select>
+
 	<insert id="insert">
-			insert into infrMember (
-				ifmmId
-				,ifmmName
-				,ifmmDelNy
-			) values (
-				#{ifmmId}
-				,#{ifmmName}
-				,0
-			) 
+		insert into infrMember (
+		ifmmId
+		,ifmmName
+		,ifmmDelNy
+		)
+		values (
+		#{ifmmId}
+		,#{ifmmName}
+		,0
+		)
 	</insert>
-	
-		<select id="selectOne" resultMap="resultMapObj">
-		select
-			a.ifmmSeq
-		    , a.ifmmId
-		    , a.ifmmName
-		from
-			infrMember a
-		where 1=1
-			and ifmmSeq = #{ifmmSeq}
-	</select>
-	
+
+	<select id="selectOne" resultMap="resultMapObj">
+		SELECT
+		a.ifmmSeq
+		,a.ifmmName
+		,a.ifmmId
+		,a.ifmmDelNy
+		,b.ifmpNumber
+		,c.ifmeEmailFull
+		,a.regDateTime
+		FROM
+		infrMember a
+		LEFT JOIN
+			infrMemberPhone b ON a.ifmmSeq = b.ifmmSeq
+		LEFT JOIN 
+			infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq
+		<!-- select a.ifmmSeq , a.ifmmId , a.ifmmName from infrMember a where 1=1 
+			and ifmmSeq = #{ifmmSeq} -->
+	</select> 
+
 	<update id="update">
-			UPDATE
-				infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임  -->
-			SET 
-				ifmmName = #{ifmmName} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
-				,ifmmId = #{ifmmId}
-			WHERE 1=1
-				AND ifmmSeq = #{ifmmSeq}
+		UPDATE
+		infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임 -->
+		SET
+		ifmmName = #{ifmmName} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
+		,ifmmId = #{ifmmId}
+		WHERE 
+		AND ifmmSeq = #{ifmmSeq}
 	</update>
 </mapper>
