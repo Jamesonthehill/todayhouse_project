@@ -12,10 +12,6 @@
 
 
 	<sql id="selectCommon">
-<!-- 		 FROM  
-				infrMember a 여기 앞에 .alpha 를 넣으니까 404오류떳엇음 첫번째  
-		 WHERE 1=1
-		 		AND ifmmDelNy = 0 -->
 		FROM 
 		infrMember a
 		LEFT JOIN
@@ -24,10 +20,15 @@
 				infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq
 		WHERE 1=1
 			<choose>
+			<when test="shJoinOption == 5">AND a.regDateTime LIKE concat('%',#{shJoinValue},'%')</when>
+			<!-- <when test="shJoinOption == 6">AND regDateTime LIKE concat('%',#{shJoinValue},'%')</when>  -->
+			</choose>
+			<choose>
 			<when test="shOption == 1">AND a.ifmmName LIKE concat('%',#{shValue}, '%')</when>
 			<when test="shOption == 2">AND a.ifmmId LIKE concat('%',#{shValue}, '%')</when>
 			<when test="shOption == 3">AND b.ifmpNumber LIKE concat('%',#{shValue}, '%')</when>
 			<when test="shOption == 4">AND c.ifmeEmailFull LIKE concat('%',#{shValue}, '%')</when>
+		<!-- 	<when test="shOption == 5">AND a.regDateTime LIKE concat('%',#{shValue}, '%')</when> -->
 			</choose>
 		
 	</sql>

@@ -13,6 +13,8 @@ public class MemberVo {
 	private String shOption;
 	private String shValue;
 	
+	private String shJoinOption;
+	private String shJoinValue;	
 	//	infrmemberphone
 	private String ifmpNumber;
 	private String ifmpSeq;
@@ -92,6 +94,38 @@ public class MemberVo {
 
 	public void setShValue(String shValue) {
 		this.shValue = shValue;
+	}
+	
+	public String getShJoinOption() {
+		return shJoinOption;
+	}
+
+	public void setShJoinOption(String shJoinOption) {
+		this.shJoinOption = shJoinOption;
+	}
+
+	public String getShJoinValue() {
+		return shJoinValue;
+	}
+
+	public void setShJoinValue(String shJoinValue) {
+		this.shJoinValue = shJoinValue;
+	}
+
+	public int getStartRnumForOracle() {
+		return startRnumForOracle;
+	}
+
+	public void setStartRnumForOracle(int startRnumForOracle) {
+		this.startRnumForOracle = startRnumForOracle;
+	}
+
+	public int getEndRnumForOracle() {
+		return endRnumForOracle;
+	}
+
+	public void setEndRnumForOracle(int endRnumForOracle) {
+		this.endRnumForOracle = endRnumForOracle;
 	}
 
 	public String getIfmpNumber() {
@@ -173,6 +207,7 @@ public class MemberVo {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
+	
 
 	/*
 	 * public int getStartRnumForOracle() { return startRnumForOracle; }
