@@ -1,0 +1,98 @@
+@charset "UTF-8";
+
+	@charset "UTF-8";
+
+
+		    		*{
+    		font-family: 잘풀리는하루;
+    		list-style:none;
+    		}
+    		
+    		body, html {
+    		place-items: center;  /*  가운데 정렬시킴 */
+			background: linear-gradient( to left,  #00bfff 0%, #00ffff 100%); /* 그라데이션, 등등 착시효과 줌  */
+			}
+			.body_section{
+				width: 1600px;
+				height: 1450px;
+				margin: auto;
+				margin-top: 30px;
+				
+				/* box-shadow: 5px 5px 10px rgba(0,0,0,0.15); */
+			}
+			
+			.title_first{
+				display: inline-block;
+				font-size: 15px;
+			    width: 25%;
+			}
+			
+			.title, .title_comment {
+				text-align: center;
+			}
+			.title .title_comment {  /*  정확한 회원정보... 아래밝기조절 */
+				color: gray;
+			}
+			.current{
+			    border-color: #093250;
+   				color: black; 			/* 이 부분만 검은색으로 색칠 */
+			}
+			
+			.step {
+			    color: #9aa1a7;   /*  색깔을 회색으로 만듦 */
+			    margin: 0 auto;
+			}
+			.step > ul {
+			    margin: 0 auto;
+			    text-align: center;
+			    list-style:none;
+			    padding-bottom: 20px;
+			}
+			.step > ul > li {
+				display: inline-block;
+				 width: 25%;
+				 font-size: 15px;
+			}
+				
+			strong{
+				font-size: 40px;
+				padding-right:15px;
+			}
+			.abc{
+				padding-top: 50px; /* 흰색 박스안에 거리를 약간 두는 명령  */
+			}
+			
+			body{
+			background-color: smokegrey;
+			
+			}
+
+			ul.join_box{border: 1px solid #ddd; background-color: #f3f3f3; margin-bottom: 30px;   border-top: 2px solid #232a32; padding: 40px 60px;}
+			
+			.checkBox>ul>li{float: left;}
+			.checkBox>ul>li:first-child{width: 85%;padding: 15px;font-weight: 600;color: #888;}
+			.checkBox>ul>li:nth-child(2){position: absolute;top: 50%;right: 30px;margin-top: -12px;}
+			.checkBox textarea{width: 96%;height: 200px; margin: 2%;background-color:white;color: #888; border-color: smokegrey; border: 1px solid;}
+			.footBtwrap{margin-top: 15px;}
+			.footBtwrap>li{float: left;width: 50%;height: 60px;}
+			.footBtwrap>li>button{display: block; width: 100%;height: 100%; font-size: 20px;text-align: center;line-height: 60px;}
+			.fpmgBt1{background-color: #97989a;color:#fff; border: none; }
+			.fpmgBt2{background-color:#d51168;;color: #fff; border: none;}
+
+
+	/* 		.confirmationNumber, .submitbtn {
+				display: inline-block;
+			} 
+		 */
+		 	.backg {
+		 		border-radius: 50px;
+		 		background-color: white;
+		 		box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+		 		width: 1750px;
+		 		margin: auto;
+		 	}
+		
+					
+					
+		
+			

@@ -1,0 +1,186 @@
+    		*{
+    		font-family: 잘풀리는하루;
+    		}
+    		
+    		body, html {
+    		place-items: center;  /*  가운데 정렬시킴 */
+			background: linear-gradient( to left,  #00bfff 0%, #00ffff 100%); /* 그라데이션, 등등 착시효과 줌  */
+			}
+			.body_section{
+				width: 1200px;
+				margin: auto;
+				/* box-shadow: 5px 5px 10px rgba(0,0,0,0.15); */
+			}
+			.margin_body{
+				margin-left: 300px;
+			}
+			
+			.title, .title_comment {
+				text-align: center;
+			}
+			.title .title_comment {  /*  정확한 회원정보... 아래밝기조절 */
+				filter: brightness(120%);
+				color: gray;
+			}
+			
+			ul li{
+				display: inline-block;
+				font-size: 15px;
+			    width: 25%;
+			    padding-bottom: 20px;
+			    box-sizing: border-box;
+			    border-bottom: 1px solid #aeb3bb;
+			    background-size: 12px auto;
+			    font-size: 15px;
+			    font-weight: 500;
+			    color: #9aa1a7;   /*  색깔을 회색으로 만듦 */
+			}
+			ul, ol, li {
+			    list-style: none;  /*  li 옆에 붙는 특수효과를 없애줌 */
+			}
+			
+			.current{
+				    border-color: #093250;
+    				color: black; 			/* 이 부분만 검은색으로 색칠 */
+			}
+			li {
+			    display: list-item;
+			}		
+			
+			.step {
+			    margin: 0 auto;
+			    text-align: center;
+			}
+			
+			strong{
+				font-size: 40px;
+				padding-right:15px;
+			}
+			.d-grid.gap-2{
+				padding-top: 30px;
+			}
+		    
+			.bir_yy,.bir_mm,.bir_dd{
+				width:160px;
+				display:table-cell;
+			}
+			.bir_mm+.bir_dd, .bir_yy+.bir_mm{
+				padding-left:10px;
+			}
+			.phonenumber, .phonecompany, .phonebtn{
+				width: 160px;
+				display:table-cell;
+				padding-left: 10px;
+			}	
+			.phonenumber+.phonebtn, .phonecompany+.phonenumber{
+				padding-left: 100px;
+			}
+			.phonebtn{
+				transform: translateY(43%);
+			}
+			.ddd{
+				color: red;
+			}
+			.eee{
+				border-radius:  30px;
+				border-color: skyblue;
+				border: 1px solid ;
+			}
+	/* 		.confirmationNumber, .submitbtn {
+				display: inline-block;
+			} 
+		 */
+		 	.backg {
+		 		border-radius: 50px;
+		 		background-color: white;
+		 		box-shadow: 5px 5px 10px rgba(0,0,0,0.15);
+		 		width: 1280px;
+		 		margin: auto;
+		 	}
+					
+			 .main_div .social_icons{
+			} 
+		 	.social_icons a{                      /* faecbook twitter 바 의미 */
+			}
+			.social_icons span{
+			}
+			.social_icons a:first-child{ 	 /* 페이스북 */
+			}
+			.social_icons a:first-child:hover{  /* 페이스북 버튼 스타일 */
+			}
+			.social_icons a:last-child{    /* 트위터  */
+			}
+			.social_icons a:last-child:hover{  /* 트위터 버튼 스타일 */
+			}
+			form {   /* id 박스를 의미  */
+			}
+ 			form .input_box{
+			}
+			.input_box input{
+			}
+		
+			.input_box input:focus{  /* 테두리 색깔 바뀌는거 */
+			}
+			.input_box .icon{
+			}
+			form .option_div{
+			}				
+			
+			.option_div .check_box{
+			}
+			.option_div span{
+			}
+			.option_div .forget_div a{
+				
+			}
+			
+			.button input{
+			}
+			.button input:hover{  /*  접속버튼 색깔 바뀌는 색깔 */
+			}
+			form .sign_up{
+			}
+			.sign_up a{
+			}
+			form a{
+			}
+			form a:hover {
+			}
+			.fff{
+			}
+			.kakao{
+			}
+			.forget_div{
+			}	
+			.container .apple a,
+			.container .facebook a,
+			.container .twitter a{
+			}
+			.container .kakao a{  /*  kakao */
+			}
+		 	.kakao img{  /*  fontawosome에 없느내용을 외부에서 카카오 img를 따로 따왔기 때문에 따로 생성  */
+			}
+			.container .apple i,
+			.container .kakao i,
+			.container .facebook i,
+			.container .twitter i{
+			}
+			.container .twitter a{
+			}
+			.container .twitter a:hover{
+			}
+			.container .facebook a{
+			}
+			.container .facebook a:hover{
+			}
+			.container .kakao a{
+			}
+			.container .kakao a:hover{
+						
+			}
+			.container .apple a{
+				}
+			.container .apple a:hover{
+			}
+			.ggg{
+			}

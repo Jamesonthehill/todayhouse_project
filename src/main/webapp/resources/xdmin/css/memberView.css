@@ -1,0 +1,26 @@
+		*{
+			font-family: 잘풀리는하루;
+		}
+		
+		html, body{
+    		text-align: center;
+    		background-color: whitesmoke;
+    		font-family: 잘풀리는하루;
+    		}
+		table {
+			width: 800px;
+		}
+		
+		table {
+			border: 1px solid black;
+			border-collapse: collapse;
+			margin: auto;
+		}
+		
+		.bbb{
+			margin: center;
+		}
+		
+		.ccc{
+			float: left;
+		}
