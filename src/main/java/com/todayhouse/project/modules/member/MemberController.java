@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -31,15 +32,11 @@ public class MemberController {
 		}
 		return "member/memberList";
 	}
+	
 	@RequestMapping(value = "/member/memberForm")
 	public String memberForm(Model model) throws Exception {
 
 		return "member/memberForm";
-	}
-	@RequestMapping(value = "/memberForm")
-	public String memberForm1(Model model) throws Exception {
-		
-		return "/memberForm";
 	}
 
 	@RequestMapping(value = "/member/memberInst")
@@ -47,27 +44,41 @@ public class MemberController {
 		
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
+		System.out.println("dto.getRegDateTime(): " + dto.getRegDateTime());
+		System.out.println("dto.getIfmpNumber(): " + dto.getIfmpNumber());
+		System.out.println("dto.getIfmeEmailFull(): " + dto.getIfmeEmailFull());
 
 		// 입력을 작동시킨다.
 		int result = service.insert(dto);
 		
 		System.out.println("result: " + result);
 
-		return "";
+		return "redirect:/member/memberList";
 	}
 	@RequestMapping(value = "/member/memberView") // 뷰.jsp에 대한 화면나옴
 	public String MemberView(MemberVo vo, Model model) throws Exception {
 		
 		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
+		System.out.println("vo.getIfmmId():" + vo.getIfmmId());
+		System.out.println("vo.getIfmmName():" + vo.getIfmmName());
 		//디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
 		Member rt = service.selectOne(vo);
 		// 가지고 온 값을 jsp로 넘겨준다
-		model.addAttribute("item", rt);
+		model.addAttribute("rt", rt);
 		
 		return "member/memberView";
+	}
+		@RequestMapping(value = "/member/memberEdit") // edit.jsp에 대한 화면나옴
+		public String MemberEdit(MemberVo vo, Model model) throws Exception {
+
+			//디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
+			Member rt = service.selectOne(vo);
+			// 가지고 온 값을 jsp로 넘겨준다
+			model.addAttribute("rt", rt);
+			
+			return "member/memberEdit";
 	
-	
-}
+		}
 	@RequestMapping(value = "/member/memberForm2")
 	public String MemberForm2(MemberVo vo, Model model) throws Exception {
 
@@ -83,8 +94,38 @@ public class MemberController {
 	public String MemberUpdt(Member dto) throws Exception {
 		
 		
-		service.update(dto);
-		return "";  // 데이터가 넘어가면 404 파일로뜸
+		service.update(dto); // 데이터를 받아오고
+		
+		return "redirect:/member/memberView?ifmmSeq="+dto.getIfmmSeq();  // 업데이트 해주는 영역
 	
+	}
+	@RequestMapping(value = "/member/memberListDele")
+	public String memberListDele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+		
+		service.delete(vo); // 데이터를 받아오고
+		
+		/*
+		 * redirectAttributes.addAttribute("thisPage" + vo.getThisPage());
+		 * redirectAttributes.addAttribute("shOption" + vo.getShOption());
+		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());
+		 */
+		
+		
+		return "redirect:/member/memberList?shifmmSeq="+vo.getIfmmSeq();  // 업데이트 해주는 영역
+		
+	}
+	@RequestMapping(value = "/member/memberListNele")
+	public String memberListNele(MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+
+		service.updateDelete(vo); // 데이터를 받아오고
+		
+		/*
+		 * redirectAttributes.addAttribute("thisPage" + vo.getThisPage());
+		 * redirectAttributes.addAttribute("shOption" + vo.getShOption());
+		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());
+		 */
+		
+		return "redirect:/member/memberList?shifmmSeq="+vo.getIfmmSeq();  // 업데이트 해주는 영역
+		
 	}
 }

@@ -23,7 +23,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public int insert(Member dto) throws Exception {
-		return dao.insert(dto); 
+		dao.insert(dto);   // 순서대로 하는거 잊지마셈.
+		dao.insertMemberPhone(dto);
+		dao.insertMemberEmail(dto); 
+		// email 과련 함수 호출
+		return 1;
+				
 	}
 	@Override
 	public Member selectOne(MemberVo vo) throws Exception {
@@ -34,6 +39,14 @@ public class MemberServiceImpl implements MemberService{
 	public int update(Member dto) throws Exception {
 		
 		return dao.update(dto);
+	}
+	@Override
+	public int delete(MemberVo vo) throws Exception {
+		return dao.delete(vo);
+	}
+	@Override
+	public int updateDelete(MemberVo vo) throws Exception {
+		return dao.updateDelete(vo);
 	}
 	
 }

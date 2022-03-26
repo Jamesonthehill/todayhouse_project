@@ -41,7 +41,6 @@
 	</select>
 
 	 <select id="selectList" resultMap="resultMapObj">
-		
 		SELECT		
 		a.ifmmSeq
 		,a.ifmmName
@@ -59,31 +58,58 @@
 		ifmmId
 		,ifmmName
 		,ifmmDelNy
+		,regDateTime
 		)
 		values (
 		#{ifmmId}
 		,#{ifmmName}
 		,0
+		,#{regDateTime}
+		)
+		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
+		SELECT last_insert_id()
+		</selectKey>
+	</insert>
+	
+	<insert id="insertMemberPhone">
+		insert into infrMemberPhone(
+		ifmpNumber
+		,ifmmSeq
+		)
+		values (
+		#{ifmpNumber}
+		,#{ifmmSeq}
+		)
+	</insert>
+		
+	<insert id="insertMemberEmail">
+		insert into infrMemberEmail(
+		ifmeEmailFull
+		,ifmmSeq
+		)
+		values (
+		#{ifmeEmailFull}
+		,#{ifmmSeq}
 		)
 	</insert>
 
-	<select id="selectOne" resultMap="resultMapObj">
+	<select id="selectOne" resultMap="resultMapObj"> 
 		SELECT
 		a.ifmmSeq
-		,a.ifmmName
+	 	,a.ifmmName
 		,a.ifmmId
 		,a.ifmmDelNy
-		,b.ifmpNumber
-		,c.ifmeEmailFull
 		,a.regDateTime
-		FROM
+<!-- 		,b.ifmpNumber
+		,c.ifmeEmailFull -->
+		FROM 
 		infrMember a
-		LEFT JOIN
-			infrMemberPhone b ON a.ifmmSeq = b.ifmmSeq
+<!-- 		LEFT JOIN
+				infrMemberPhone b ON a.ifmmSeq = b.ifmmSeq
 		LEFT JOIN 
-			infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq
-		<!-- select a.ifmmSeq , a.ifmmId , a.ifmmName from infrMember a where 1=1 
-			and ifmmSeq = #{ifmmSeq} -->
+				infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq -->
+		WHERE 1=1
+		AND a.ifmmSeq = #{ifmmSeq}
 	</select> 
 
 	<update id="update">
@@ -95,4 +121,19 @@
 		WHERE 
 		AND ifmmSeq = #{ifmmSeq}
 	</update>
+	
+	<delete id="delete">
+		DELETE FROM infrMember WHERE 1=1 AND ifmmSeq = #{ifmmSeq} <!-- 시퀀스가 같은 것을 삭제시키겠다.  -->
+	</delete>
+
+	<update id="updateDelete">
+		UPDATE
+			infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임 -->
+		SET
+			ifmmDelNy = 1;
+		WHERE 1=1
+			AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+
 </mapper>

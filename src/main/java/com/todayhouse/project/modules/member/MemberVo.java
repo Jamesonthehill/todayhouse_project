@@ -8,11 +8,14 @@ public class MemberVo {
 	private String ifmmName;
 	private String regDateTime;
 	
+	
 	//  Search
 	private String shIfmmName;
 	private String shOption;
 	private String shValue;
 	
+	
+	private String shifmmSeq;
 	private String shJoinOption;
 	private String shJoinValue;	
 	//	infrmemberphone
@@ -96,6 +99,14 @@ public class MemberVo {
 		this.shValue = shValue;
 	}
 	
+	public String getShifmmSeq() {
+		return shifmmSeq;
+	}
+
+	public void setShifmmSeq(String shifmmSeq) {
+		this.shifmmSeq = shifmmSeq;
+	}
+
 	public String getShJoinOption() {
 		return shJoinOption;
 	}

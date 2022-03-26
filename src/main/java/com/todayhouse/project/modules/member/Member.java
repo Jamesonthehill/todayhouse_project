@@ -7,7 +7,6 @@ public class Member {
 	private String ifmmName;   			//private를 사용하는 이유는, 기능의 제한을 주기위해서이다.
 	private Integer ifmmDelNy;
 	private String regDateTime;
-	
 //	infrmemberphone
 	private String ifmpNumber;
 	private String ifmpSeq;
@@ -41,6 +40,12 @@ public class Member {
 	public void setIfmmDelNy(Integer ifmmDelNy) {
 		this.ifmmDelNy = ifmmDelNy;
 	}
+	public String getRegDateTime() {
+		return regDateTime;
+	}
+	public void setRegDateTime(String regDateTime) {
+		this.regDateTime = regDateTime;
+	}
 	public String getIfmpNumber() {
 		return ifmpNumber;
 	}
@@ -53,17 +58,12 @@ public class Member {
 	public void setIfmpSeq(String ifmpSeq) {
 		this.ifmpSeq = ifmpSeq;
 	}
-	public String getRegDateTime() {
-		return regDateTime;
-	}
-	public void setRegDateTime(String regDateTime) {
-		this.regDateTime = regDateTime;
-	}
 	public String getIfmeEmailFull() {
 		return ifmeEmailFull;
 	}
 	public void setIfmeEmailFull(String ifmeEmailFull) {
 		this.ifmeEmailFull = ifmeEmailFull;
 	}
+
 	
 }
