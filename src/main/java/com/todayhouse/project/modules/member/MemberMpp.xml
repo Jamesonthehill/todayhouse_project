@@ -20,7 +20,11 @@
 				infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq
 		WHERE 1=1
 			<choose>
-			<when test="shJoinOption == 5">AND a.regDateTime LIKE concat('%',#{shJoinValue},'%')</when>
+<!-- 			<when test="shOptionDate == 0">AND a.regDateTime disabled #{shDateStart} AND #{shDateEnd}</when>
+ -->			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<when test="shOptionDate == 3">AND a.ifmmDob BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<!-- <when test="shJoinOption == 5">AND a.regDateTime LIKE concat('%',#{shJoinValue},'%')</when> -->
 			<!-- <when test="shJoinOption == 6">AND regDateTime LIKE concat('%',#{shJoinValue},'%')</when>  -->
 			</choose>
 			<choose>
@@ -49,22 +53,49 @@
 		,b.ifmpNumber
 		,c.ifmeEmailFull
 		,a.regDateTime
+		<!-- ,a.ifmmPassword -->
 			<include refid="selectCommon"/> 
 			limit #{startRnumForMysql}, #{rowNumToShow}
 	</select>
+	
+	 <select id="selectListNation" resultMap="resultMapObj">
+		SELECT		
+		a.ifnSeq
+		,a.ifnName
+		FROM 
+			infrNationality a
+		WHERE 1 = 1
+	</select>
+	
+	
+	
 
 	<insert id="insert">
-		insert into infrMember (
-		ifmmId
-		,ifmmName
+		INSERT INTO infrMember (
+		ifmmName
+		,ifmmId
 		,ifmmDelNy
+		,ifmmPassword
+		,ifmmPassword2
+		,ifmmDob
+		,ifmmGenderCd
 		,regDateTime
+		,ifmmEmailConsentNy
+		,ifmmSmsConsentNy
+		,ifmmPushConsentNy
 		)
-		values (
-		#{ifmmId}
-		,#{ifmmName}
+		VALUES (
+		#{ifmmName}
+		,#{ifmmId}
 		,0
+		,#{ifmmPassword}
+		,#{ifmmPassword2}
+		,#{ifmmDob}
+		,#{ifmmGenderCd}
 		,#{regDateTime}
+		,#{ifmmEmailConsentNy}
+		,#{ifmmSmsConsentNy}
+		,#{ifmmPushConsentNy}
 		)
 		<selectKey resultType="String" keyProperty="ifmmSeq" order="AFTER">
 		SELECT last_insert_id()
@@ -74,10 +105,11 @@
 	<insert id="insertMemberPhone">
 		insert into infrMemberPhone(
 		ifmpNumber
+		,ifmpTelecomCd
 		,ifmmSeq
-		)
-		values (
+		) values (
 		#{ifmpNumber}
+		,#{ifmpTelecomCd}
 		,#{ifmmSeq}
 		)
 	</insert>
@@ -86,54 +118,151 @@
 		insert into infrMemberEmail(
 		ifmeEmailFull
 		,ifmmSeq
-		)
-		values (
+		) values (
 		#{ifmeEmailFull}
 		,#{ifmmSeq}
 		)
 	</insert>
 
+	<insert id="insertMemberAddress">
+		insert into infrMemberAddress(
+		ifmaAddress1
+		,ifmaAddress2
+		,ifmaZipcode
+		,ifmmSeq
+		)
+		values (
+		#{ifmaAddress1}
+		,#{ifmaAddress2}
+		,#{ifmaZipcode}
+		,#{ifmmSeq}
+		)
+	</insert>
+
+	<insert id="insertMemberNationality">
+		insert into infrMemberNationality(
+		ifnName
+		,ifmmSeq
+		)
+		values (
+		#{ifnName}
+		,#{ifmmSeq}
+		)
+	</insert>
+
+
 	<select id="selectOne" resultMap="resultMapObj"> 
 		SELECT
 		a.ifmmSeq
-	 	,a.ifmmName
+		,a.ifmmName
 		,a.ifmmId
 		,a.ifmmDelNy
+		,a.ifmmPassword
+		,a.ifmmPassword2
+		,a.ifmmDob
 		,a.regDateTime
-<!-- 		,b.ifmpNumber
-		,c.ifmeEmailFull -->
+		,b.ifmpNumber
+		,c.ifmeEmailFull
+		,d.ifmaAddress1
+		,d.ifmaAddress2
+		,d.ifmaZipcode
+		,f.ifnName
+		,g.ifcdName
 		FROM 
-		infrMember a
-<!-- 		LEFT JOIN
+			infrMember a
+		LEFT JOIN
 				infrMemberPhone b ON a.ifmmSeq = b.ifmmSeq
 		LEFT JOIN 
-				infrmemberEmail c ON a.ifmmSeq = c.ifmmSeq -->
-		WHERE 1=1
+				infrMemberEmail c ON a.ifmmSeq = c.ifmmSeq
+		LEFT JOIN 
+				infrMemberAddress d ON a.ifmmSeq = d.ifmmSeq
+		LEFT JOIN 
+				infrMemberNationality e ON a.ifmmSeq = e.ifmmSeq
+		LEFT JOIN 
+				infrNationality f ON  e.ifmnSeq = f.ifnSeq
+		LEFT JOIN 
+				infrCode g ON g.ifcdSeq = a.ifmmGenderCd
+		WHERE 
+			1 = 1
 		AND a.ifmmSeq = #{ifmmSeq}
 	</select> 
 
+<!--    		<select id="selectGender" resultMap="resultMapObj"> 
+        select 
+			a.ifcdSeq
+			,a.ifcdName
+        	FROM infrCode as a
+        LEFT JOIN infrCodeGroup b ON b.ifcgSeq = a.ifcgSeq
+        LEFT JOIN infrMember c ON a.ifcdSeq = c.ifmmGenderCd
+		</select> -->
+
 	<update id="update">
 		UPDATE
-		infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임 -->
+			infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임 -->
 		SET
-		ifmmName = #{ifmmName} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
-		,ifmmId = #{ifmmId}
+			ifmmName = #{ifmmName} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
+			,ifmmId = #{ifmmId}
+			,ifmmPassword = #{ifmmPassword} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
+			,regDateTime = #{regDateTime}
 		WHERE 
+			1 = 1
+		AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<update id="updateNumber">
+		UPDATE
+			infrMemberPhone  
+		SET
+			ifmpNumber = #{ifmpNumber} 
+		WHERE
+			1 = 1 
+		AND ifmmSeq = #{ifmmSeq}
+	</update>
+	
+	<update id="updateEmail">
+		UPDATE
+			infrMemberEmail 
+		SET
+			ifmeEmailFull = #{ifmeEmailFull}
+		WHERE 
+			1 = 1
 		AND ifmmSeq = #{ifmmSeq}
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM infrMember WHERE 1=1 AND ifmmSeq = #{ifmmSeq} <!-- 시퀀스가 같은 것을 삭제시키겠다.  -->
 	</delete>
+	
+	<delete id="deleteNumber">
+		DELETE FROM infrMemberPhone WHERE 1=1 AND ifmmSeq = #{ifmmSeq}  <!-- 시퀀스가 같은 것을 삭제시키겠다.  -->
+	</delete>
+	
+	<delete id="deleteEmail">
+		DELETE FROM infrMemberEmail WHERE 1=1 AND ifmmSeq = #{ifmmSeq}  <!-- 시퀀스가 같은 것을 삭제시키겠다.  -->
+	</delete>
 
 	<update id="updateDelete">
 		UPDATE
 			infrMember  <!-- 진짜 중요한게 테이블 이름틀리면 505 Error 불변임 -->
 		SET
-			ifmmDelNy = 1;
+			ifmmDelNy = 1
 		WHERE 1=1
 			AND ifmmSeq = #{ifmmSeq}
 	</update>
 	
+	<select id="selectOneLogin" resultMap="resultMapObj">
+		SELECT
+			ifmmSeq
+			, ifmmId
+			, ifmmName
+			, ifmmPassword
+		FROM
+			infrMember
+		WHERE
+		  	1 = 1
+			AND ifmmId = #{ifmmId}
+			AND ifmmPassword = #{ifmmPassword}
+	</select>
+
 
 </mapper>

@@ -6,15 +6,18 @@ public class MemberVo {
 	private String ifmmSeq;
 	private String ifmmId;
 	private String ifmmName;
-	private String regDateTime;
+	/* private Integer regDateTime; */
 	
 	
 	//  Search
 	private String shIfmmName;
 	private String shOption;
 	private String shValue;
+	private String ShDateStart;
+	private String ShDateEnd;
+	private Integer ShOptionDate;
 	
-	
+	private String shDob;
 	private String shifmmSeq;
 	private String shJoinOption;
 	private String shJoinValue;	
@@ -67,13 +70,14 @@ public class MemberVo {
 		this.ifmmName = ifmmName;
 	}
 
-	public String getRegDateTime() {
-		return regDateTime;
-	}
 
-	public void setRegDateTime(String regDateTime) {
-		this.regDateTime = regDateTime;
-	}
+
+	/*
+	 * public Integer getRegDateTime() { return regDateTime; }
+	 * 
+	 * public void setRegDateTime(Integer regDateTime) { this.regDateTime =
+	 * regDateTime; }
+	 */
 
 	public String getShIfmmName() {
 		return shIfmmName;
@@ -99,6 +103,42 @@ public class MemberVo {
 		this.shValue = shValue;
 	}
 	
+
+	public String getShDateStart() {
+		return ShDateStart;
+	}
+
+	public void setShDateStart(String shDateStart) {
+		ShDateStart = shDateStart;
+	}
+
+	public String getShDateEnd() {
+		return ShDateEnd;
+	}
+
+	public void setShDateEnd(String shDateEnd) {
+		ShDateEnd = shDateEnd;
+	}
+
+
+
+	public Integer getShOptionDate() {
+		return ShOptionDate;
+	}
+
+	public void setShOptionDate(Integer shOptionDate) {
+		ShOptionDate = shOptionDate;
+	}
+
+	
+	public String getShDob() {
+		return shDob;
+	}
+
+	public void setShDob(String shDob) {
+		this.shDob = shDob;
+	}
+
 	public String getShifmmSeq() {
 		return shifmmSeq;
 	}

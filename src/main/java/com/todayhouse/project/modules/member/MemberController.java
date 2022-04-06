@@ -11,12 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.todayhouse.project.common.constants.Constants;
-import com.todayhouse.project.common.util.UtilDateTime;
+
 
 
 @Controller
@@ -31,10 +29,21 @@ public class MemberController {
 		int count = service.selectOneCount(vo);
 		
 		
-		vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
-		vo.setShDateStart(vo.getShDateStart() == null ? UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(), Constants.DATE_INTERVAL) : vo.getShDateStart());  
+		/*
+		 * vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
+		 */
+		
+		/*
+		 * vo.setShDateStart(vo.getShDateStart() == null ?
+		 * UtilDateTime.calculateDayString(UtilDateTime.nowLocalDateTime(),
+		 * Constants.DATE_INTERVAL) : vo.getShDateStart());
+		 */
+		 
 		/*		 UtilDateTime.addStringTime(vo.getShDateStart()));*/		
-		vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() : vo.getShDateEnd());
+		/*
+		 * vo.setShDateEnd(vo.getShDateEnd() == null ? UtilDateTime.nowString() :
+		 * vo.getShDateEnd());
+		 */
 		
 		vo.setParamsPaging(count);
 		
@@ -57,38 +66,83 @@ public class MemberController {
 	
 	@RequestMapping(value = "/member/memberForm")
 	public String memberForm(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
-
+		System.out.println("memberForm");
 		System.out.println("dto.thisPage(): " + vo.getThisPage());
+		
+		List<Member> selectNation = service.selectListNation();
+		model.addAttribute("selectNation", selectNation);
 		
 		return "member/memberForm";
 	}
 
-	@RequestMapping(value = "/member/memberInst", method = RequestMethod.POST)
-	public String memberInst(Model model, Member dto) throws Exception {
+	@RequestMapping(value = "/member/memberInst")
+	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 		
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
-		System.out.println("dto.getRegDateTime(): " + dto.getRegDateTime());
+		System.out.println("dto.getIfmmDob(): " + dto.getIfmmDob());
 		System.out.println("dto.getIfmpNumber(): " + dto.getIfmpNumber());
+		System.out.println("dto.getIfmmPassword(): " + dto.getIfmmPassword());
+		System.out.println("dto.getIfmmPassword2(): " + dto.getIfmmPassword2());
+		System.out.println("dto.getIfmmGenderCd(): " + dto.getIfmmGenderCd());
+		System.out.println("dto.getRegDateTime(): " + dto.getRegDateTime());
 		System.out.println("dto.getIfmeEmailFull(): " + dto.getIfmeEmailFull());
+		System.out.println("dto.getIfmaAddress1(): " + dto.getIfmaAddress1());
+		System.out.println("dto.getIfmaAddress2(): " + dto.getIfmaAddress2());
+		System.out.println("dto.getIfmaZipcode(): " + dto.getIfmaZipcode());
 
 		// 입력을 작동시킨다.
 		int result = service.insert(dto);
 		
 		System.out.println("result: " + result);
-
-		return "redirect:/member/memberList?ifmmSeq="+dto.getIfmmSeq();
-	}
-	@RequestMapping(value = "/member/memberView") // 뷰.jsp에 대한 화면나옴
-	public String MemberView(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 		
+		/*
+		 * redirectAttributes.addAttribute("getIfmmId" + dto.getIfmmId());
+		 * redirectAttributes.addAttribute("getIfmmName" + dto.getIfmmName());
+		 * redirectAttributes.addAttribute("getIfmmDob" + dto.getIfmmDob());
+		 * redirectAttributes.addAttribute("getIfmpNumber" + dto.getIfmpNumber());
+		 * redirectAttributes.addAttribute("getIfmmPassword" + dto.getIfmmPassword());
+		 * redirectAttributes.addAttribute("getIfmmPassword2" + dto.getIfmmPassword2());
+		 * redirectAttributes.addAttribute("getIfmmGenderCd" + dto.getIfmmGenderCd());
+		 * redirectAttributes.addAttribute("getRegDateTime" + dto.getRegDateTime());
+		 * redirectAttributes.addAttribute("getIfmeEmailFull" + dto.getIfmeEmailFull());
+		 * redirectAttributes.addAttribute("getIfmaAddress1" + dto.getIfmaAddress1());
+		 * redirectAttributes.addAttribute("getIfmaAddress2" + dto.getIfmaAddress2());
+		 * redirectAttributes.addAttribute("getIfmaZipcode" + dto.getIfmaZipcode());
+		 */
+		
+		vo.setIfmmSeq(dto.getIfmmSeq());
+		/* redirectAttributes.addFlashAttribute("dto", dto); */
+		
+		redirectAttributes.addFlashAttribute("vo", vo);
+		
+		return "redirect:/member/memberView";
+	}
+	
+	@RequestMapping(value = "/member/memberView") // 뷰.jsp에 대한 화면나옴
+	public String MemberView(@ModelAttribute("vo") MemberVo vo, Member dto, Model model) throws Exception {
+
 		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
-		System.out.println("vo.getIfmmId():" + vo.getIfmmId());
-		System.out.println("vo.getIfmmName():" + vo.getIfmmName());
+		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
+		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
+		System.out.println("dto.getIfmmDob(): " + dto.getIfmmDob());
+		System.out.println("dto.getIfmpNumber(): " + dto.getIfmpNumber());
+		System.out.println("dto.getIfmmPassword(): " + dto.getIfmmPassword());
+		System.out.println("dto.getIfmmGenderCd(): " + dto.getIfmmGenderCd());
+		System.out.println("dto.getRegDateTime(): " + dto.getRegDateTime());
+		System.out.println("dto.getIfmeEmailFull(): " + dto.getIfmeEmailFull());
+		System.out.println("dto.getIfmaAddress1(): " + dto.getIfmaAddress1());
+		System.out.println("dto.getIfmaAddress2(): " + dto.getIfmaAddress2());
+		System.out.println("dto.getIfmaZipcode(): " + dto.getIfmaZipcode());
 		//디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
+	
 		Member rt = service.selectOne(vo);
+		
 		// 가지고 온 값을 jsp로 넘겨준다
+		/* Member item = service.selectGender(vo); */
+		
 		model.addAttribute("rt", rt);
+		/* model.addAttribute("item", item); */
 		
 		return "member/memberView";
 	}
@@ -181,7 +235,7 @@ public class MemberController {
 		/*
 		 * redirectAttributes.addAttribute("thisPage" + vo.getThisPage());
 		 * redirectAttributes.addAttribute("shOption" + vo.getShOption());
-		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());
+		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());rmsep 
 		 */
 		
 		return "redirect:/member/memberList?shifmmSeq="+vo.getIfmmSeq();  // 업데이트 해주는 영역

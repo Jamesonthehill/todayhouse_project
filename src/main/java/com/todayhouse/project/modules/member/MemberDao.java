@@ -19,6 +19,10 @@ public class MemberDao {
 	public int selectOneCount(MemberVo vo) {return sqlSession.selectOne(namespace + ".selectOneCount", vo);}
 	public List<Member> selectList(MemberVo vo){ List<Member> list = sqlSession.selectList(namespace + ".selectList", vo); return list;}
 	public Member selectOne(MemberVo vo) { return sqlSession.selectOne(namespace + ".selectOne", vo);}
+	public Member selectOneLogin(Member dto) { return sqlSession.selectOne(namespace + ".selectOneLogin", dto);}
+	public List<Member> selectListNation(){ List<Member> list = sqlSession.selectList(namespace + ".selectListNation", ""); return list;}
+	public Member selectGender(MemberVo vo) { return sqlSession.selectOne(namespace + ".selectGender", vo);}
+	
 	
 	// insertMemberEmail 이거 관련 함수 만드시고 그 함수를 serviceimpl 에서 호출
 
@@ -30,11 +34,18 @@ public class MemberDao {
 
 	// update
 	public int update(Member dto) { return sqlSession.update(namespace + ".update", dto);}
+	public int updateNumber(Member dto) { return sqlSession.update(namespace + ".updateNumber", dto);}
+	public int updateEmail(Member dto) { return sqlSession.update(namespace + ".updateEmail", dto);}
 	public int updateDelete(MemberVo vo) { return sqlSession.update(namespace + ".updateDelete", vo);}
 	
 	
 	// delete
 	public int delete(MemberVo vo) { return sqlSession.delete(namespace + ".delete", vo);}
+	public int deleteNumber(MemberVo vo) { return sqlSession.delete(namespace + ".deleteNumber", vo);}
+	public int deleteEmail(MemberVo vo) { return sqlSession.delete(namespace + ".deleteEmail", vo);}
+	
+	// login
+	
 	
 	/*
 	 * public int delete(MemberVo vo) { return sqlSession.update(namespace +
