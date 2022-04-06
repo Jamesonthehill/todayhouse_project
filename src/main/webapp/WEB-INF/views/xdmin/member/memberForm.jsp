@@ -6,13 +6,6 @@
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 
 
-<%-- <form id="form" method="post" action="/member/memberInst">
-	<input type="hidden" name="ifmmSeq" value=<c:out value="${item.ifmmSeq}"/>> <!-- 아이디 입력후 제출하겠다.-->
-	<input type="text" name="ifmmId" placeholder="아이디" value=<c:out value="${item.ifmmId}"/>> <!-- 아이디 입력후 제출하겠다.-->
-	<input type="text" name="ifmmName" placeholder="아이디" value=<c:out value="${item.ifmmName}"/>> <!-- 이름 입력후 제출하겠다. -->
-	<input type="submit" value="제출">
-</form> --%>
-
 <!doctype html>
 <html lang="ko">
 <head>
@@ -33,21 +26,24 @@
       <span class="navbar-toggler-icon"></span>
     </button>
       <form class="d-flex">
-        <input class="form-control me-2" styletype="search" placeholder="통합 검색" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="통합 검색" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">search</button>
       </form>
   </div>
 </nav>
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <input class="form-control me-2 d-flex" type="text"  placeholder="통합 검색" >
+</nav>
  
 </head>
 <body style="float: left;">
-<form id="form" method="post" action="/member/memberInst">
+		<form id="formList" name="formList" method="GET" action="/member/memberInst">
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq">
 	<h1 style="text-align: center;">
 		회원추가
 	</h1>
 	<hr>
-	<a href="/member/memberList?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>" type="button" class="btn btn-secondary">취	소</a>
+	<a type="button" class="btn btn-secondary" href="/member/memberList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">취	소</a>
 	<a href="/member/memberList" type="button" class="btn btn-info" style="color:white;" onclick="here()">홈</a>
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">추	가</button>
@@ -64,13 +60,13 @@
 				</div>
 				<div class="modal-body">저장하시겠습니까?</div>
 				<div class="modal-footer">
-					<input type="submit"  class="btn btn-primary" id="btnSubmit" value="네">
+					<input type="submit"  class="btn btn-primary" id="btnSubmit" value="네"> 
+					<%-- <a type="submit" class="btn btn-primary" id="btnSubmit" href="/member/memberInst?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">네</a> --%>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<hr>
 	<div>
@@ -88,77 +84,71 @@
 		<table class="table table-hover">
 			<tr>
 				<td rowspan="7" style="background-color: #00bfff; width: 10px; color: white; padding-top:110px;">인적사항</td>
-				<td rowspan="2" style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">이름</td>
+				<td rowspan="2" style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">
+</td>
 				<td style="background-color: #00bfff; color: white; width: 80px;">한 글</td>
 				<td><input type="text" id="ifmmName" name="ifmmName" placeholder="이름을 입력하세요" ></td>
-				<td style="background-color: #00bfff; color: white; width: 130px;">주민등록번호</td>
-				<td>
-					<input type="text" id="" name=""  style="width: 150px;"> -
-					<input type="text" id="" name=""  style="width: 150px;">
-				</td>
+				<td style="background-color: #00bfff; color: white; width: 130px;">비밀번호</td>
+				<td><input type="text" id="ifmmPassword" name="ifmmPassword"  style="width: 150px;" placeholder="비밀번호를 입력하세요"></td>
 
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">영 어</td>
 				<td><input type="text" id="" name="" ></td>
-				<td style="background-color: #00bfff; color: white;">성별</td>
-				<td><input type="radio" id="7" name="7"  >&nbsp남
-					&nbsp<input type="radio" id="7" name="7" >&nbsp여</td>
+				<td style="background-color: #00bfff; color: white;">비밀번호확인</td>
+				<td><input type="password" id="ifmmPassword2" name="ifmmPassword2" placeholder="비밀번호를 입력하세요"></td>
 			</tr>
 			
 			<tr>
 				<td style="background-color: #00bfff; color: white;">아이디</td>
 				<td colspan="2"><input type="text" style="width:300px;" id="ifmmId" name="ifmmId" placeholder="아이디를 입력하세요"></td>
-				<td style="background-color: #00bfff; color: white;">비밀번호</td>
-				<td><input type="text" id="" name="" ></td>
-			</tr>
+				<td style="background-color: #00bfff; color: white;">성별</td>
+				<td>
+				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="3" >&nbsp남
+				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="4">&nbsp여</td>
+			
 			<tr>
 				<td style="background-color: #00bfff; color: white;">E-Mail</td>
 				<td colspan="2"><input type="text" style="width:300px;" id="ifmeEmailFull" name="ifmeEmailFull" placeholder="이메일을 입력하세요" ></td>
-				<td style="background-color: #00bfff; color: white;">마케팅 수신동의</td>
-				<td><input type="radio" id="2" name="2" >&nbsp예
-					&nbsp<input type="radio" id="2" name="2" >&nbsp아니오</td>
-
+				<td style="background-color: #00bfff; color: white;">통신사</td>
+				<td><input type="radio" id="2" name="2" >&nbspSKT
+					<input type="radio" id="2" name="2" >&nbspKT
+					<input type="radio" id="2" name="2" >&nbspLG</td>
+                     
 			</tr>
 			<tr>
-				<td style="background-color: #00bfff; color: white;">가입날짜</td>
-				<td colspan="2"><input type="text" style="width:300px;" id="regDateTime" name="regDateTime" placeholder="가입날짜를 입력하세요" ></td>
+				<td style="background-color: #00bfff; color: white;">생일</td>
+				<td colspan="2"><input class="shDate" type="text" style="width:300px;" id="ifmmDob" name="ifmmDob" <fmt:formatDate value="${ifmmDob}" pattern="yyyy-MM-dd"/> placeholder="생일을 선택하세요." autocomplete="off" ></td>
 				<td style="background-color: #00bfff; color: white;">휴대폰</td>
 				<td><input type="text" id="ifmpNumber" name="ifmpNumber" placeholder="핸드폰번호를 입력해주세요" ></td>
 			</tr>
 			<tr>
-				<td style="background-color: #00bfff; color: white;">결혼여부</td>
-				<td colspan="2"><select >
-						<option selected>::결혼여부::</option>
-						<option>미혼</option>
-						<option>기혼</option>
-						<option>재혼</option>
-				</select></td>
-				<td style="background-color: #00bfff; color: white;">자녀여부</td>
-				<td colspan="2"><input type="radio" id="1" name="1" >&nbsp
-					Y &nbsp<input type="radio" id="1" name="1"  >&nbspN</td>
+				<td style="background-color: #00bfff; color: white;">국적</td>
+				<td colspan="2">
+					<select>
+							<option selected>::국적::
+								<c:forEach items="${selectNation}" var="item" varStatus="status">
+							<option value="<c:out value="${item.ifnSeq}"/>"><c:out value="${item.ifnName}"/>
+								</c:forEach>
+					</select></td>
+				<td style="background-color: #00bfff; color: white;">마케팅 수신동의</td>
+				<td colspan="2">
+				<input type="radio" id="1" name="1" >&nbspEmail 
+				<input type="radio" id="1" name="1"  >&nbspSns
+				<input type="radio" id="1" name="1"  >&nbspPush
+				</td>
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">주 소</td>
 				<td colspan="5">
-					<input type="text" style="width:500px;" id="sample6_address" name="sample6_address" placeholder="주소" >
-					<input type="text" id="sample6_postcode" placeholder="우편번호">
+					<input type="text" style="width:500px;" id="sample6_address" name="ifmaAddress1" placeholder="주소" >
+					<input type="text" id="sample6_postcode" name="ifmaZipcode" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 					<br><br>
-					<input type="text" id="sample6_extraAddress" style="width:500px;" placeholder="참고항목">
-					<input type="text" id="sample6_detailAddress" placeholder="상세주소">
+					<input type="text" id="sample6_extraAddress" name="ifmaAddress2" style="width:500px;" placeholder="상세주소">
+					<input type="text" id="sample6_detailAddress" placeholder="참고항목">
 	
 	
-	
-<!-- <div class="input-group input-group-sm">
-<input type="text" id="ifmaZipcodeArray0" value="" placeholder="우편번호" class="form-control" >
-<button type="button" id="btnAddress" class="btn btn-outline-secondary"><i class="fas fa-search"></i></button> <br>
-<button type="button" id="btnAddress" class="btn btn-outline-secondary" onclick="sample6_execDaumPostcode()"><i class="fas fa-search"></i></button> <br>
-<button type="button" id="btnAddressClear" class="btn btn-outline-secondary"><i class="fa-solid fa-x"></i></button> <br>
-</div> -->
-
-<!-- <input type="text" id="ifmaAddress1Array0" value="" placeholder="상세주소" readonly>
-<input type="text" id="ifmaAddress2Array0" value="" maxlength="50" placeholder="참고항목"> -->
 				</td>
 			</tr>
 
@@ -359,7 +349,8 @@
 	<script href="../_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script src="../../../../resources/xdmin/js/validation.js"></script>
+	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
 
 	<script type = "text/javascript">
 		$("#btnSubmit").on("click", function() {
@@ -368,35 +359,62 @@
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력해주세요")) return false;
 			if(!checkNull($("#ifmpNumber"), $("#ifmpNumber").val(), "번호를 입력해주세요")) return false;
 			if(!checkNull($("#ifmeEmailFull"), $("#ifmeEmailFull").val(), "이메일을 입력해주세요")) return false;
-			if(!checkNull($("#regDateTime"), $("#regDateTime").val(), "시간을 입력해주셍!")) return false;
 
 			});
-	</script>
-	<!-- <script type = "text/javascript">
-		$("#btnSubmit").on("click", function() {
-	
-			/* if(!checkNull($("#shIfcgName"), $("#shIfcgName").val(), "코드그룹이름을 입력해 주세요!")) return false; */ 
-			
-			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력해주세요")) return false;
-			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력해주세요")) return false;
-			if(!checkNull($("#ifmpNumber"), $("#ifmpNumber").val(), "번호를 입력해주세요")) return false;
-			if(!checkNull($("#ifmeEmailFull"), $("#ifmeEmailFull").val(), "이메일을 입력해주세요")) return false;
-			if(!checkNull($("#regDateTime"), $("#regDateTime").val(), "시간을 입력해주셍!")) return false;
-
-			});	
-			/* if(!checkId($("#Id") ) ) return false;
+			/*  if(!checkId($("#Id") ) ) return false;
 			if(!checkPassword($("#password") ) ) return false;
 			if(!checkSamePassword($("#"), $("#").val(), "시간을 입력해주셍!")) return false;
 			if(!checkContact($("#"), $("#").val(), "시간을 입력해주셍!")) return false;
-			 */
 			$("#btnSubmit2").on("click", function() {
 				
 				alert("2번째 버튼 입니다.!")
 			});	
-			 
-	</script> -->
+			  */
+	</script> 
+		
+		 	<script type="text/javascript">
+	$(document).ready(function(){
+		 $("input.shDate").datepicker();
+	}); 
 
-
+	$.datepicker.setDefaults({
+	    dateFormat: 'yy-mm-dd',
+	    prevText: '이전 달',
+	    nextText: '다음 달',
+	    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	    showMonthAfterYear: true,
+	    yearSuffix: '년'
+	});
+</script>
+		
+		
+		<script type="text/javascript"> //  POST방식전환
+		
+		goList = function(seq) {
+			alert(seq);
+			// form 객체를 가져온다
+			$("#thisPage").val(seq);
+			$("#formList").submit();
+			// 그 가져온 객체를 전달한다.
+		};
+		
+			goForm = function(seq){
+				$("#ifmmSeq").val(seq);
+				$("#formList").attr("action", "/member/memberList");
+				$("#formList").submit();
+			}
+		
+		goView = function(seq) {
+			alert(seq);
+			$("#ifmmSeq").val(seq);
+			$("#formList").attr("action", "/member/memberView");
+			$("#formList").submit();
+		}
+	</script>
 	<!-- 	<div class="ddd">    
   		<ul class="pagination ddd ">
   	<a class="page-link" href="#">Previous</a>
@@ -405,10 +423,9 @@
     <a class="page-link" href="#">3</a>
     <a class="page-link" href="#">Next</a>
   		</ul>
-</div>	
- -->
+	</div>	
+	 -->
 	<script type="text/javascript">
-
 			function selectAll(selectAll) {
 				const checkboxes 
 					= document.getElementsByName("checkbox1");
@@ -421,9 +438,9 @@
 	</script>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+	
+	<script type="text/javascript">
 	    function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {

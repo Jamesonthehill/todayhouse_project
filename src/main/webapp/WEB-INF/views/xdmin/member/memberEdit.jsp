@@ -23,12 +23,10 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="통합 검색" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">search</button>
       </form> 
-    </div>
   </div>
 </nav>
 
@@ -42,14 +40,11 @@
 			회원정보수정
 		</h1>
 	<hr>
-	<a  class="btn btn-secondary" href="/member/memberView?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>">취	소</a>
+	<!-- Button trigger modal -->
+	<a class="btn btn-secondary" href="/member/memberView?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>">취	소</a>
 	<a href="/member/memberList" type="button" class="btn btn-info" style="color:white;" onclick="here()">홈</a>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-danger" data-bs-toggle="modal"
-		data-bs-target="#staticBackdrop" style="font-family: 잘풀리는하루;">
-		저	장</button>
+	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">저	장</button>
 
-	<!-- Button trigger modal -->
 
 	<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
@@ -59,16 +54,15 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="staticBackdropLabel">경고</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
+					<button type="button"  class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">저장하시겠습니까?</div>
 				<div class="modal-footer">
 				
 				<%-- <form method="GET" action="/member/memberUpdt?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>"> --%>
-					
-					<input type="submit"  class="btn btn-primary" value="네(수정하기)">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요(취소)</button>
+					<input type="submit" id="btnSubmit" class="btn btn-primary" value="저장">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 				
 				</div>
 			</div>
@@ -134,7 +128,7 @@
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">가입날짜</td>
-				<td colspan="2"><input type="text" id="regDateTime" name="regDateTime" value="${rt.regDateTime}"></td>
+				<td colspan="2"><input type="text" id="regDateTime" name="regDateTime" value="<fmt:formatDate value="${rt.regDateTime}" pattern="yyyy-MM-dd"/>"></td>
 				<td style="background-color: #00bfff; color: white;">자녀여부</td>
 				<td colspan="2"><input type="radio" id="1" name="1" >&nbsp
 					Y &nbsp<input type="radio" id="1" name="1" checked >&nbspN</td>
@@ -337,26 +331,39 @@
 
 	</form>
 </body>
+	<script href="../_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="C:\factory\ws_sts_4130\todayhouse_project\src\main\webapp\resources\xdmin\js"></script>
+	
+	<script type = "text/javascript">
+		$("#btnSubmit").on("click", function() {
+	
+			/* if(!checkNull($("#shIfcgName"), $("#shIfcgName").val(), "코드그룹이름을 입력해 주세요!")) return false; */ 
+			
+			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력해주세요")) return false;
+			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력해주세요")) return false;
+			if(!checkNull($("#ifmpNumeber"), $("#ifmpNumeber").val(), "번호를 입력해주세요")) return false;
+			if(!checkNull($("#ifmeEmailFull"), $("#ifmeEmailFull").val(), "이메일을 입력해주세요")) return false;
+			if(!checkNull($("#regDateTime"), $("#regDateTime").val(), "시간을 입력해주셍용!")) return false;
+
+			});	
+			/* if(!checkId($("#Id") ) ) return false;
+			if(!checkPassword($("#password") ) ) return false;
+			if(!checkSamePassword($("#"), $("#").val(), "시간을 입력해주셍!")) return false;
+			if(!checkContact($("#"), $("#").val(), "시간을 입력해주셍!")) return false;
+			 */
+	</script>
 
 	<script type="text/javascript">
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
+			var myModal = document.getElementById('myModal')
+			var myInput = document.getElementById('myInput')
+			
+			myModal.addEventListener('shown.bs.modal', function () {
+			  myInput.focus()
+			})
+	</script>
 
-myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus()
-})
-</script>
-
-
-	<!-- 이거   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
- -->
-
-	<script
-		href="../_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
 
 
 	<!-- 	<div class="ddd">    
@@ -382,13 +389,8 @@ myModal.addEventListener('shown.bs.modal', function () {
 	
 </script>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
-
-
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
     function sample6_execDaumPostcode() {
         new daum.Postcode({

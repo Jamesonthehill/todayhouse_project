@@ -6,18 +6,6 @@
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags" %>
 	
 			
-<%-- <c:choose>
-	<c:when test="${fn:length(list) eq 0}">
-		<tr>
-			<td class="text-center" colspan="9">There is no data!</td>
-		</tr>	
-	</c:when>
-	<c:otherwise>
-		<c:forEach items="${list}" var="item" varStatus="status">	
-		<c:out value=" ${item.ifmmSeq}"/> | <a href="/member/memberView?ifmmSeq=${item.ifmmSeq}"><c:out value="${item.ifmmId}"/></a> | <c:out value="${item.ifmmName}"/> <br>
-		</c:forEach>
-	</c:otherwise>
-</c:choose>	  --%>
 
 
 <!doctype html>
@@ -38,7 +26,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
       <form class="d-flex">
-        <input class="form-control me-2" styletype="search" placeholder="통합 검색" aria-label="Search">
+        <input class="form-control me-2" type="search" placeholder="통합 검색" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">search</button>
       </form>
   </div>
@@ -58,7 +46,7 @@
 				<div class="row mb-2"><!-- sm-2 반응형, p-1~10 박스크기, pt-위쪽,왼쪽으로부터)얼마나 띄워쓸것인지 위치 -->
 					<div class="col-sm-2 p-2 pb-3">
 						<select class="form-select" name="shOptionDate">
-							<option value="">::날짜::</option>
+							<option value="0">::날짜::</option>
 							<option value="1">등록일</option>
 							<option value="2">수정일</option>
 							<option>끝날짜</option>
@@ -66,12 +54,12 @@
 					</div>
 					<div class="col-sm-2 p-2 pb-3">
 						<%-- <fmt:parseDate var="shDateStart" value="${vo.shDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/> --%> <%-- <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd"/> --%>
-						<input class="form-control shDate" type="text" id="shDateStart" name="shDateStart" value="${vo.shDateStart}" placeholder="시작일" autocomplete="off">
+						<input class="form-control shDate" type="text" id="shDateStart" name="shDateStart" <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="시작일" autocomplete="off">
 					<%-- <input class="form-control" type="text" name="shJoinValue" value="<c:out value="${vo.shJoinValue}"/>" placeholder="시작일">  --%>
 					</div> 
 					<div class="col-sm-2 p-2 pb-3">
 						<%-- <fmt:parseDate var="shDateEnd" value="${vo.shDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
-						<input class="form-control shDate" type="text" id="shDateEnd" name="shDateEnd" value="${vo.shDateEnd}" placeholder="종료일" autocomplete="off">
+						<input class="form-control shDate" type="text" id="shDateEnd" name="shDateEnd" <fmt:formatDate value="${shDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="종료일" autocomplete="off">
 						<!-- <input class="form-control shDate" type="text" id="abcDate" placeholder="종료일"> -->
 					</div>
 					</div>
@@ -140,7 +128,7 @@
       <td><c:out value=" ${item.ifmmId}"/></td> <!-- 아이디 -->
       <td><c:out value=" ${item.ifmpNumber}"/></td> <!-- 연락처  -->
       <td><c:out value=" ${item.ifmeEmailFull}"/></td>
-      <td><c:out value=" ${item.regDateTime}"/></td>
+      <td><fmt:formatDate value="${item.regDateTime}" pattern="yyyy-MM-dd"/></td>
       <td><a href="/member/memberView?ifmmSeq=<c:out value="${item.ifmmSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>">상세보기</a></td> <!--  memberView 앞에 / 썻다가 2시간 삽질 -->
     </tr>
     </c:forEach>
@@ -228,7 +216,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet" />
+	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
 
  	<script type="text/javascript">
 	function selectAll(selectAll) {
