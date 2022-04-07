@@ -31,16 +31,13 @@
       </form>
   </div>
 </nav>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <input class="form-control me-2 d-flex" type="text"  placeholder="통합 검색" >
-</nav>
  
 </head>
 <body style="float: left;">
 		<form id="formList" name="formList" method="GET" action="/member/memberInst">
 		<input type="hidden" id="ifmmSeq" name="ifmmSeq">
 	<h1 style="text-align: center;">
-		회원추가
+		회원등록
 	</h1>
 	<hr>
 	<a type="button" class="btn btn-secondary" href="/member/memberList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">취	소</a>
@@ -83,25 +80,27 @@
 
 		<table class="table table-hover">
 			<tr>
-				<td rowspan="7" style="background-color: #00bfff; width: 10px; color: white; padding-top:110px;">인적사항</td>
-				<td rowspan="2" style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">
-</td>
+				<td rowspan="8" style="background-color: #00bfff; width: 10px; color: white; padding-top:110px;">인적사항</td>
+				<td rowspan="2" style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">이름</td>
 				<td style="background-color: #00bfff; color: white; width: 80px;">한 글</td>
-				<td><input type="text" id="ifmmName" name="ifmmName" placeholder="이름을 입력하세요" ></td>
+				<td><input class="form-control me-2" type="text" id="ifmmName" name="ifmmName" placeholder="이름을 입력하세요" autocomplete="off"></td>
 				<td style="background-color: #00bfff; color: white; width: 130px;">비밀번호</td>
-				<td><input type="text" id="ifmmPassword" name="ifmmPassword"  style="width: 150px;" placeholder="비밀번호를 입력하세요"></td>
-
+				<td><input class="form-control me-2" type="text" id="ifmmPassword" name="ifmmPassword"  placeholder="비밀번호를 입력하세요" autocomplete="off"></td>
+				<div class="valid-feedback" id="ifmmPwdValidFeedBack">사용가능한 비밀번호입니다.</div>
+				<div class="invalid-feedback" id="ifmmPwdInvalidFeedBack">사용 불가능한 비밀번호입니다.</div>
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">영 어</td>
-				<td><input type="text" id="" name="" ></td>
+				<td><input class="form-control me-2" type="text" id="ifmmNameEng" name="ifmmNameEng" placeholder="영어이름을 입력하세요" autocomplete="off" ></td>
 				<td style="background-color: #00bfff; color: white;">비밀번호확인</td>
-				<td><input type="password" id="ifmmPassword2" name="ifmmPassword2" placeholder="비밀번호를 입력하세요"></td>
+				<td><input class="form-control me-2" type="password" id="ifmmPassword2" name="ifmmPassword2" placeholder="비밀번호를 입력하세요" autocomplete="off"></td>
+				<div class="valid-feedback" id="ifmmPwdConfirmValidFeedBack">비밀번호가 일치합니다.</div>
+				<div class="invalid-feedback" id="ifmmPwdConfirmInvalidFeedBack">비밀번호가 일치하지 않습니다.</div>
 			</tr>
 			
 			<tr>
 				<td style="background-color: #00bfff; color: white;">아이디</td>
-				<td colspan="2"><input type="text" style="width:300px;" id="ifmmId" name="ifmmId" placeholder="아이디를 입력하세요"></td>
+				<td colspan="2"><input class="form-control me-2" type="text" id="ifmmId" name="ifmmId" placeholder="아이디를 입력하세요" autocomplete="off"></td>
 				<td style="background-color: #00bfff; color: white;">성별</td>
 				<td>
 				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="3" >&nbsp남
@@ -109,18 +108,18 @@
 			
 			<tr>
 				<td style="background-color: #00bfff; color: white;">E-Mail</td>
-				<td colspan="2"><input type="text" style="width:300px;" id="ifmeEmailFull" name="ifmeEmailFull" placeholder="이메일을 입력하세요" ></td>
+				<td colspan="2"><input class="form-control me-2" type="text"  id="ifmeEmailFull" name="ifmeEmailFull" placeholder="이메일을 입력하세요" autocomplete="off"></td>
 				<td style="background-color: #00bfff; color: white;">통신사</td>
-				<td><input type="radio" id="2" name="2" >&nbspSKT
-					<input type="radio" id="2" name="2" >&nbspKT
-					<input type="radio" id="2" name="2" >&nbspLG</td>
+				<td><input type="radio" id="ifmpTelecomCd" name="ifmpTelecomCd" value="29" >&nbspSKT
+					<input type="radio" id="ifmpTelecomCd" name="ifmpTelecomCd" value="30">&nbspKT
+					<input type="radio" id="ifmpTelecomCd" name=ifmpTelecomCd value="31">&nbspLG</td>
                      
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">생일</td>
-				<td colspan="2"><input class="shDate" type="text" style="width:300px;" id="ifmmDob" name="ifmmDob" <fmt:formatDate value="${ifmmDob}" pattern="yyyy-MM-dd"/> placeholder="생일을 선택하세요." autocomplete="off" ></td>
+				<td colspan="2"><input class="form-control me-2" class="shDate" type="text" id="ifmmDob" name="ifmmDob" <fmt:formatDate value="${ifmmDob}" pattern="yyyy-MM-dd"/> placeholder="생일을 선택하세요." autocomplete="off" ></td>
 				<td style="background-color: #00bfff; color: white;">휴대폰</td>
-				<td><input type="text" id="ifmpNumber" name="ifmpNumber" placeholder="핸드폰번호를 입력해주세요" ></td>
+				<td><input class="form-control me-2" type="text" id="ifmpNumber" name="ifmpNumber" placeholder="핸드폰번호를 입력해주세요" autocomplete="off"></td>
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">국적</td>
@@ -133,9 +132,9 @@
 					</select></td>
 				<td style="background-color: #00bfff; color: white;">마케팅 수신동의</td>
 				<td colspan="2">
-				<input type="radio" id="1" name="1" >&nbspEmail 
-				<input type="radio" id="1" name="1"  >&nbspSns
-				<input type="radio" id="1" name="1"  >&nbspPush
+				<input type="radio" id="ifmmEmailConsentNy" name="ifmmEmailConsentNy" value="35">&nbspEmail 
+				<input type="radio" id="ifmmEmailConsentNy" name="ifmmEmailConsentNy" value="36">&nbspSns
+				<input type="radio" id="ifmmEmailConsentNy" name="ifmmEmailConsentNy" value="37">&nbspPush
 				</td>
 			</tr>
 			<tr>
@@ -147,11 +146,11 @@
 					<br><br>
 					<input type="text" id="sample6_extraAddress" name="ifmaAddress2" style="width:500px;" placeholder="상세주소">
 					<input type="text" id="sample6_detailAddress" placeholder="참고항목">
-	
-	
+					<br><br>
+					<input type="text" id="ifmaLat" name="ifmaLat" <c:out value="${item.ifmaLat}"/> maxlength="50" placeholder="위도" readonly>
+					<input type="text" id="ifmaLng" name="ifmaLng" <c:out value="${item.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
 				</td>
 			</tr>
-
 		</table>
 	</div>
 	<div style="height: 10px;"></div>
@@ -159,175 +158,29 @@
 		<tr>
 			<td rowspan="4" style="background-color:#00bfff; color:white; width: 10px; padding-top: 40px;">구매정보</td>
 			<td style="background-color:#00bfff; color:white;">제품명</td>
-			<td style="background-color:#00bfff; color:white;">제품가격</td>
 			<td style="background-color:#00bfff; color:white;">제품구매일</td>
-			<td colspan="2" style="background-color:#00bfff; color:white;">환불여부</td>
-
-			
+			<td style="background-color:#00bfff; color:white;">제품가격</td>
 		</tr>
 		<tr>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="date"> ~
-			<input type="date"></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="date"></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
 		</tr>
 		<tr>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="date"> ~
-			<input type="date" ></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="date"></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
 		</tr>
 		<tr style="padding: 10px;">
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="date" > ~
-			<input type="date" ></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
+			<td><input class="form-control me-2" type="date" ></td>
+			<td><input class="form-control me-2" type="text" id="" name="" ></td>
 		</tr>
 	</table>
-	<div style="height: 10px;"></div>
-	<div>
-		<table class="table table-hover">
-			<tr>
-				<td rowspan="4"
-					style="background-color: #00bfff; color: white; width: 10px; padding-top: 60px;">프로젝트</td>
-				<td style="background-color: #00bfff; color: white; width: 150px;">프로젝트명</td>
-				<td colspan="2"
-					style="background-color: #00bfff; color: white; width: 200px;">참여기간</td>
-				<td style="background-color: #00bfff; color: white; width: 150px;">역할</td>
-				<td style="background-color: #00bfff; color: white; width: 150px;">위탁회사</td>
-			</tr>
-			<tr>
-				<td><input type="text" id="" name="" ></td>
-				<td colspan="2">
-				<input type="date" > ~
-				<input type="date" ></td>
-				<td><input type="text" id="" name=""></td>
-				<td><input type="text" id="" name="" ></td>
-			</tr>
-			<tr>
-				<td><input type="text" id="" name="" ></td>
-				<td colspan="2">
-				<input type="date" > ~
-				<input type="date" ></td>
-				<td><input type="text" id="" name=""></td>
-				<td><input type="text" id="" name="" ></td>
 
-			</tr>
-			<tr>
-				<td><input type="text" id="" name="" ></td>
-				<td colspan="2">
-				<input type="date" > ~
-				<input type="date" ></td>
-				<td><input type="text" id="" name="" ></td>
-				<td><input type="text" id="" name="" ></td>
-
-			</tr>
-		</table>
-	</div>
 	<div style="height: 10px;"></div>
 
-	<table class="table table-hover">
-		<tr>
-			<td rowspan="4"
-				style="background-color: #00bfff; color: white; width: 10px; padding-top: 40px;">가족사항</td>
-			<td style="background-color: #00bfff; color: white;">관계</td>
-			<td style="background-color: #00bfff; color: white;">성 명</td>
-			<td style="background-color: #00bfff; color: white;">연 령</td>
-			<td style="background-color: #00bfff; color: white;">합 력</td>
-			<td style="background-color: #00bfff; color: white;">직 업</td>
-			<td style="background-color: #00bfff; color: white;">동 거</td>
-			<td class="aaa " rowspan="5"
-				style="background-color: #00bfff; color: white; width: 10px; padding-top: 50px;">기타사항</td>
-			<td colspan="2" style="background-color: #00bfff; color: white;">취득
-				자격증</td>
-
-		</tr>
-		<tr>
-			<td><select >
-						<option>::관계::</option>
-						<option>아버지<option>
-						<option>아버지</option>
-						<option>아머니</option>
-						<option>누나</option>
-						<option>형</option>
-						<option>남동생</option>
-						<option>여동생</option>
-						<option>오빠</option>
-						<option>언니</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name="" style="width: 50px;"></td>
-			<td><select >
-						<option>::학 력::</option>
-						<option>대졸</option>
-						<option>초졸</option>
-						<option>중졸</option>
-						<option>대재</option>
-						<option>대학원졸</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="radio" id="3" name="6" >&nbspYes
-					&nbsp<input type="radio" id="6" name="6" >&nbspNo</td>
-			<td><input type="text" id="" name="" ></td>
-		</tr>
-		<tr>
-			<td><select >
-						<option>::관계::</option>
-						<option>어머니</option>
-						<option>아버지</option>
-						<option>아머니</option>
-						<option>누나</option>
-						<option>형</option>
-						<option>남동생</option>
-						<option>여동생</option>
-						<option>오빠</option>
-						<option>언니</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name=""  style="width: 50px;"></td>
-			<td><select >
-						<option>::학 력::</option>
-						<option>대졸</option>
-						<option>초졸</option>
-						<option>중졸</option>
-						<option>대재</option>
-						<option>대학원졸</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="radio" id="3" name="5"  >&nbspYes
-					&nbsp<input type="radio" id="5" name="5" >&nbspNo</td>
-			<td><input type="text" id="" name="" ></td>
-		<tr>
-			<td><select >
-						<option>::관계::</option>
-						<option>형</option>
-						<option>아버지</option>
-						<option>아머니</option>
-						<option>누나</option>
-						<option>형</option>
-						<option>남동생</option>
-						<option>여동생</option>
-						<option>오빠</option>
-						<option>언니</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="text" id="" name=""  style="width: 50px;"></td>
-			<td><select >
-						<option>::학 력::</option>
-						<option>대졸</option>
-						<option>초졸</option>
-						<option>중졸</option>
-						<option>대재</option>
-						<option>대학원졸</option>
-				</select></td>
-			<td><input type="text" id="" name="" ></td>
-			<td><input type="radio" id="3" name="3"  >&nbspYes
-					&nbsp<input type="radio" id="3" name="3">&nbspNo</td>
-		</tr>
-	</table>
+	
 
 </form>
 
@@ -350,15 +203,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+	<script src="../../../../resources/xdmin/js/validation.js"></script> 
 	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
-
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
+	
 	<script type = "text/javascript">
 		$("#btnSubmit").on("click", function() {
 			
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력해주세요")) return false;
-			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력해주세요")) return false;
-			if(!checkNull($("#ifmpNumber"), $("#ifmpNumber").val(), "번호를 입력해주세요")) return false;
-			if(!checkNull($("#ifmeEmailFull"), $("#ifmeEmailFull").val(), "이메일을 입력해주세요")) return false;
+			if(!checkNull($("#ifmmPassword2"), $("#ifmmPassword2").val(), "비밀번호를 입력해주세요")) return false;
+			if(!checkNull($("#ifmmDob"), $("#ifmmDob").val(), "생일을 입력해주세요")) return false;
 
 			});
 			/*  if(!checkId($("#Id") ) ) return false;
@@ -415,18 +269,11 @@
 			$("#formList").submit();
 		}
 	</script>
-	<!-- 	<div class="ddd">    
-  		<ul class="pagination ddd ">
-  	<a class="page-link" href="#">Previous</a>
- 	<a class="page-link" href="#">1</a>
-    <a class="page-link" href="#">2</a>
-    <a class="page-link" href="#">3</a>
-    <a class="page-link" href="#">Next</a>
-  		</ul>
-	</div>	
-	 -->
+	
+	
+	
 	<script type="text/javascript">
-			function selectAll(selectAll) {
+	function selectAll(selectAll) {
 				const checkboxes 
 					= document.getElementsByName("checkbox1");
 				
@@ -441,7 +288,14 @@
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 	<script type="text/javascript">
-	    function sample6_execDaumPostcode() {
+/* 	var address = document.getElementById("address");
+	var mapContainer = document.getElementById("map");
+	var x,y = "";
+	
+	var map = new daum.maps.map(mapContainer, mapOption);;
+ */
+	
+	function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {
 	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -485,11 +339,114 @@
 	                document.getElementById("sample6_address").value = addr;
 	                // 커서를 상세주소 필드로 이동한다.
 	                document.getElementById("sample6_detailAddress").focus();
-	            }
+	                
+					// 주소-좌표 변환 객체를 생성
+	                var geocoder = new daum.maps.services.Geocoder();
+					
+					geocoder.addressSearch(addr, function(result, status){
+						
+						if (status == daum.maps.services.Status.OK) {
+							document.getElementById("ifmaLat").value = result[0].y;
+							document.getElementById("ifmaLng").value = result[0].x;
+						}
+						
+					});
+					
+					
+				}
 	        }).open();
 	    }
 	</script>
+	<script type="text/javascript">
+					/* lat and lng from address s */
+ 				
+				// 주소-좌표 변환 객체를 생성
+				var geocoder = new daum.maps.services.Geocoder();
+				
+				// 주소로 좌표를 검색
+				geocoder.addressSearch(Addr, function(result, status) {
+				 
+					// 정상적으로 검색이 완료됐으면,
+					if (status == daum.maps.services.Status.OK) {
+						
+						document.getElementById("ifmaLat").value=result[0].x;
+						document.getElementById("ifmaLng").value=result[0].y;
+						
+					}
+				}
+				
+/* 						
+						var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+				
+						y = result[0].x;
+						x = result[0].y;
+				
+						// 결과값으로 받은 위치를 마커로 표시합니다.
+						var marker = new daum.maps.Marker({
+							map: map,
+							position: coords
+						});
+				
+						// 인포윈도우로 장소에 대한 설명표시
+						var infowindow = new daum.maps.InfoWindow({
+							content: '<div style="width:150px;text-align:center;padding:5px 0;">좌표위치</div>'
+						});
+				
+						infowindow.open(map,marker);
+				
+						// 지도 중심을 이동
+						map.setCenter(coords);
+						
+						document.getElementById("ifmaLatArray0").value=x;
+						document.getElementById("ifmaLngArray0").value=y;
+ */						</script>
 
+<!-- 		<script type="text/javascript">
+	$(function() {
+		$("#ifmmPwdValidFeedBack").hide();
+		$("#ifmmPwdInvalidFeedBack").hide();
 
+		$("#ifmmPwdConfirmValidFeedBack").hide();
+		$("#ifmmPwdConfirmInvalidFeedBack").hide();
+		$("input")
+				.keyup(
+						function() {
+
+							var pwd1 = $("#ifmmPassword").val();
+							var pwd2 = $("#ifmmPassword2").val();
+							var regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,20}$/;
+
+							if (regExp.test(pwd1)) {
+								$("#ifmmPassword").addClass("is-valid");
+								$("#ifmmPassword").removeClass("is-invalid");
+								$("#ifmmPwdValidFeedBack").show();
+								$("#ifmmPwdInvalidFeedBack").hide();
+								$("#ifmmPassword2").removeAttr("disabled");
+							} else if (!regExp.test(pwd1) && pwd1.length > 1) {
+								$("#ifmmPassword").addClass("is-invalid");
+								$("#ifmmPassword").removeClass("is-valid");
+								$("#ifmmPwdValidFeedBack").hide();
+								$("#ifmmPwdInvalidFeedBack").show();
+								$("#ifmmPassword2").attr("disabled", "disabled");
+							}
+
+							if (pwd1 != "" && pwd2 != "") {
+								if (pwd1 == pwd2) {
+									$("#ifmmPassword2").addClass("is-valid");
+									$("#ifmmPassword2").removeClass("is-invalid");
+									$("#ifmmPwdConfirmValidFeedBack").show();
+									$("#ifmmPwdConfirmInvalidFeedBack").hide();
+									$("#btnSubmit").removeAttr("disabled");
+								} else {
+									$("#ifmmPassword2").addClass("is-invalid");
+									$("#ifmmPassword2").removeClass("is-valid");
+									$("#ifmmPwdConfirmValidFeedBack").hide();
+									$("#ifmmPwdConfirmInvalidFeedBack").show();
+									$("#btnSubmit").attr("disabled", "disabled");
+								}
+							}
+						});
+	});
+</script> -->
 </html>
 	
