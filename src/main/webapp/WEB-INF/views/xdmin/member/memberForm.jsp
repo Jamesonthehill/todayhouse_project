@@ -31,11 +31,12 @@
       </form>
   </div>
 </nav>
- 
 </head>
+
 <body style="float: left;">
-		<form id="formList" name="formList" method="GET" action="/member/memberInst">
+		<form id="formList" name="formList" method="POST" action="/member/memberInst" enctype="multipart/form-data">
 		<input type="hidden" id="ifmmSeq" name="ifmmSeq">
+		
 	<h1 style="text-align: center;">
 		회원등록
 	</h1>
@@ -66,16 +67,13 @@
 	</div>
 
 	<hr>
-	<div>
 		<div class="row">
-			<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2"
-				style="margin: auto;">
-				<img src=""
-					style="width: 150px; height: 150px;"
-					class="rounded-circle border border-5 bbb">
+			<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2" style="margin: auto;">
+				<img src="" style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb">
 			</div>
 			<div class="col-4 col-md-1 mb-2"></div>
 		</div>
+		<hr>
 <!-- <input type="text" id="ifmmSeq" name="ifmmSeq" placeholder="시퀀스번호" > -->
 
 		<table class="table table-hover">
@@ -105,7 +103,7 @@
 				<td>
 				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="3" >&nbsp남
 				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="4">&nbsp여</td>
-			
+			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">E-Mail</td>
 				<td colspan="2"><input class="form-control me-2" type="text"  id="ifmeEmailFull" name="ifmeEmailFull" placeholder="이메일을 입력하세요" autocomplete="off"></td>
@@ -113,11 +111,10 @@
 				<td><input type="radio" id="ifmpTelecomCd" name="ifmpTelecomCd" value="29" >&nbspSKT
 					<input type="radio" id="ifmpTelecomCd" name="ifmpTelecomCd" value="30">&nbspKT
 					<input type="radio" id="ifmpTelecomCd" name=ifmpTelecomCd value="31">&nbspLG</td>
-                     
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">생일</td>
-				<td colspan="2"><input class="form-control me-2" class="shDate" type="text" id="ifmmDob" name="ifmmDob" <fmt:formatDate value="${ifmmDob}" pattern="yyyy-MM-dd"/> placeholder="생일을 선택하세요." autocomplete="off" ></td>
+				<td colspan="2"><input class="form-control me-2 shDate"  type="text" id="ifmmDob" name="ifmmDob" <fmt:formatDate value="${ifmmDob}" pattern="yyyy-MM-dd"/> placeholder="생일을 선택하세요" autocomplete="off" ></td>
 				<td style="background-color: #00bfff; color: white;">휴대폰</td>
 				<td><input class="form-control me-2" type="text" id="ifmpNumber" name="ifmpNumber" placeholder="핸드폰번호를 입력해주세요" autocomplete="off"></td>
 			</tr>
@@ -151,8 +148,25 @@
 					<input type="text" id="ifmaLng" name="ifmaLng" <c:out value="${item.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
 				</td>
 			</tr>
+			<tr>
+				<td style="background-color: #00bfff; color: white;">첨부파일</td>
+				<td colspan="5">
+					<div class="col-sm-6 mt-3 mt-sm-0">
+						<label for="file" class="form-label input-file-button">이미지첨부</label>
+						<input class="form-control form-control-sm" type="file" id="file" name="file" style="dislay: none;" >
+					</div>
+<!-- 			<br><br>
+					<div class="col-sm-6 mt-3 mt-sm-0">
+						<label for="file1" class="form-label input-file-button">파일첨부</label>
+						<input class="form-control form-control-sm" type="file" id="file1" name="file1" multiple="multiple" style="dislay: none;" onChange="upload(1,1);" >
+					</div>
+					<div class="addScroll"> 
+						<ul id="ulFile1" class="list-group"></ul>
+					</div> -->
+				</td>
+			</tr>
 		</table>
-	</div>
+	
 	<div style="height: 10px;"></div>
 	<table class="table table-hover">
 		<tr>
@@ -176,6 +190,7 @@
 			<td><input class="form-control me-2" type="date" ></td>
 			<td><input class="form-control me-2" type="text" id="" name="" ></td>
 		</tr>
+
 	</table>
 
 	<div style="height: 10px;"></div>
@@ -207,7 +222,7 @@
 	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
 	
-	<script type = "text/javascript">
+	<!-- <script type = "text/javascript">
 		$("#btnSubmit").on("click", function() {
 			
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력해주세요")) return false;
@@ -224,7 +239,7 @@
 				alert("2번째 버튼 입니다.!")
 			});	
 			  */
-	</script> 
+	</script>  -->
 		
 		 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -400,22 +415,18 @@
 						document.getElementById("ifmaLatArray0").value=x;
 						document.getElementById("ifmaLngArray0").value=y;
  */						</script>
-
-<!-- 		<script type="text/javascript">
+		<script type="text/javascript">
 	$(function() {
 		$("#ifmmPwdValidFeedBack").hide();
 		$("#ifmmPwdInvalidFeedBack").hide();
-
 		$("#ifmmPwdConfirmValidFeedBack").hide();
 		$("#ifmmPwdConfirmInvalidFeedBack").hide();
 		$("input")
 				.keyup(
 						function() {
-
 							var pwd1 = $("#ifmmPassword").val();
 							var pwd2 = $("#ifmmPassword2").val();
 							var regExp = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#$%^&*]).{8,20}$/;
-
 							if (regExp.test(pwd1)) {
 								$("#ifmmPassword").addClass("is-valid");
 								$("#ifmmPassword").removeClass("is-invalid");
@@ -429,7 +440,6 @@
 								$("#ifmmPwdInvalidFeedBack").show();
 								$("#ifmmPassword2").attr("disabled", "disabled");
 							}
-
 							if (pwd1 != "" && pwd2 != "") {
 								if (pwd1 == pwd2) {
 									$("#ifmmPassword2").addClass("is-valid");
@@ -447,6 +457,59 @@
 							}
 						});
 	});
-</script> -->
+</script>
+<script src="/resources/js/checkUpload.js"></script>
+
+
+	<script type="text/javascript">
+	
+	upload = function(seq, div) {
+		
+		$("#ulFile" + seq).children().remove();
+		
+		var fileCount = $("input[type=file]")[seq].files.length;
+		//파일 개수 확인
+		if(checkUploadedTotalFileNumber(fileCount, seq) == false) { return false; }
+		
+		var totalFileSize;
+		
+		for (var i = 0 ; i < fileCount ; i++) {
+			if(div == 1) {
+				if(checkUploadedAllExt($("input[type=file]")[seq].files[i].name, seq) == false) { return false; }
+			} else if(div == 2) {
+				if(checkUploadedImageExt($("input[type=file]")[seq].files[i].name, seq) == false) { return false; }
+			} else {
+				return false;
+			}
+			
+			if(checkUploadedEachFileSize($("input[type=file]")[seq].files[i].name, seq) == false ) { return false; }
+			totalFileSize += $("input[type=file]")[seq].files[i].size;
+		}
+		
+		if(checkUploadedTotalFileSize(totalFileSize, seq) == false) { return false; }
+		
+		for ( var i = 0 ; i < fileCount ; i++) {
+			addUploadLi(seq, i, $("input[type=file]")[seq].files[i].name);
+		}
+		
+	}
+	
+	addUploadLi = function (seq, i, name){
+		
+		var li = '';
+		li += '<li id="li_' + seq + '_' + i + '" class="list-group-item d-flex justify-content-between align-items-center">';
+		li += name;
+		li += '<span class="badge bg-danger rounded-pill" onClick="delLi(' + seq + ',' + i + ')"><i class="fa-solid fa-x" style="cursor: pointer;"></i></span>';
+		li += '</li>';		
+		
+		$("#ulFile" + seq).append(li);
+		
+	}
+	
+	delLi = function(seq, i) {
+		$("#li_" + seq + "_" + i).remove();
+	}
+	
+	</script>
 </html>
 	
