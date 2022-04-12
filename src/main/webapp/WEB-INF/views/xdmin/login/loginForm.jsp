@@ -25,6 +25,8 @@
 <link rel="stylesheet" href="../../../../resources/user/css/login.css">
 <!-- stylesheet은 참조하겟다 login.css 이파일을  -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v10.0&appId=3235765853336354" nonce="SiOBIhLG"></script>
+
 <title>로그인 폼</title>
 
 </head>
@@ -77,8 +79,14 @@
 				<div class="twitter">
 					<a href="#"><i class="fab fa-twitter"></i>트위터 계정으로 로그인</a>
 				</div>
-				<div class="facebook">
-					<a href="#"><i class="fab fa-facebook-f"></i>페이스북 계정으로 로그인</a>
+				<div class="facebook" >
+					<!-- <a href="javascript:void(0)"><i class="fab fa-facebook-f"></i>페이스북 계정으로 로그인</a> -->
+						<div class="fb-login-button"  data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+
+				<div id="status">
+				</div>
+						
 				</div>
 				<div class="apple">	<a href="#"><i class="fab fa-apple"></i>애플 계정으로 로그인</a>
 				</div>
@@ -91,13 +99,8 @@
 	
 
 
-
-	<!-- 	<div class="form-check form-switch">
-	 					<input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-  						<span>Auto login</span>
-  					</div>  -->
-</body>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v13.0&appId=3235765853336354&autoLogAppEvents=1" nonce="fq1er24p"></script>
 
 	<script href="../_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script> 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -150,7 +153,52 @@
 						 }
 					 })
 			}
-	</script>
+		</script>
+		<script>
+
+		  function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+		    console.log('statusChangeCallback');
+		    console.log(response);                   // The current login status of the person.
+		    if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+		      testAPI();  
+		    } else {                                 // Not logged into your webpage or we are unable to tell.
+		      document.getElementById('status').innerHTML = 'Please log ' +
+		        'into this webpage.';
+		    }
+		  }
+		
+		
+		  function checkLoginState() {               // Called when a person is finished with the Login Button.
+		    FB.getLoginStatus(function(response) {   // See the onlogin handler
+		      statusChangeCallback(response);
+		    });
+		  }
+		
+		
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : '3235765853336354',    // app_Id 입력
+		      cookie     : true,                     // Enable cookies to allow the server to access the session.
+		      xfbml      : true,                     // Parse social plugins on this webpage.
+		      version    : 'v13.0'           // Use this Graph API version for this call.
+		    });
+		
+		
+		    FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+		      statusChangeCallback(response);        // Returns the login status.
+		    });
+		  };
+		 
+		  function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+		    console.log('Welcome!  Fetching your information.... ');
+		    FB.api('/me', function(response) {
+		      console.log('Successful login for: ' + response.name);
+		      document.getElementById('status').innerHTML =
+		        'Thanks for logging in, ' + response.name + '!';
+		    });
+		  }
+		
+		</script>
 	
-	
+	</body>
 </html>
