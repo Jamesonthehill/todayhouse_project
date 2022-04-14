@@ -31,11 +31,15 @@ public class MemberDao {
 	public int insert(Member dto){ return sqlSession.insert(namespace + ".insert", dto);}
 	public int insertMemberEmail(Member dto) {  return sqlSession.insert(namespace + ".insertMemberEmail", dto);}
 	public int insertMemberPhone(Member dto) {  return sqlSession.insert(namespace + ".insertMemberPhone", dto);}
+	public int insertMemberAddress(Member dto) {  return sqlSession.insert(namespace + ".insertMemberAddress", dto);}
+	public int insertMemberNationality(Member dto) {  return sqlSession.insert(namespace + ".insertMemberNationality", dto);}
 
 	// update
 	public int update(Member dto) { return sqlSession.update(namespace + ".update", dto);}
 	public int updateNumber(Member dto) { return sqlSession.update(namespace + ".updateNumber", dto);}
 	public int updateEmail(Member dto) { return sqlSession.update(namespace + ".updateEmail", dto);}
+	public int updateMemberAddress(Member dto) { return sqlSession.update(namespace + ".updateMemberAddress", dto);}
+	public int updateMemberNationality(Member dto) { return sqlSession.update(namespace + ".updateMemberNationality", dto);}
 	public int updateDelete(MemberVo vo) { return sqlSession.update(namespace + ".updateDelete", vo);}
 	
 	
@@ -43,6 +47,8 @@ public class MemberDao {
 	public int delete(MemberVo vo) { return sqlSession.delete(namespace + ".delete", vo);}
 	public int deleteNumber(MemberVo vo) { return sqlSession.delete(namespace + ".deleteNumber", vo);}
 	public int deleteEmail(MemberVo vo) { return sqlSession.delete(namespace + ".deleteEmail", vo);}
+	public int deleteAddress(MemberVo vo) { return sqlSession.delete(namespace + ".deleteAddress", vo);}
+	public int deleteNationality(MemberVo vo) { return sqlSession.delete(namespace + ".deleteNationality", vo);}
 	
 	// login
 	
