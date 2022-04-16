@@ -21,14 +21,14 @@
     <title>인테리어 플랫폼 오늘의 집</title>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid" style="background-color:  #00bfff;">
-    <a class="navbar-brand" href="http://localhost:8080/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
+    <a class="navbar-brand" href="/member/memberList"><img src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-      <form class="d-flex">
+<!--       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="통합 검색" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">search</button>
-      </form>
+      </form> -->
   </div>
 </nav>
 
@@ -39,9 +39,9 @@
 <p style="float: left;">&nbsp&nbsp홈 > 회원관리</p>
 <br><br>
 <h1>회원관리</h1>
-		<form id="formList" name="formList" method="POST" action="/member/memberList">
+		<form id="formList" name="formList" method="POST">
 		<input type="hidden" id="thisPage" name="thisPage"  value="<c:out value="${vo.thisPage}" default="1"/>">
-		<input type="hidden" id="ifmmSeq" name="ifSeq">
+		<input type="hidden" id="ifmmSeq" name="ifmmSeq">
 			<div class="row border m-2"> <!--  검색하는 영역을 네모난 통으로 씌워주는 것 -->
 				<div class="row mb-2"><!-- sm-2 반응형, p-1~10 박스크기, pt-위쪽,왼쪽으로부터)얼마나 띄워쓸것인지 위치 -->
 					<div class="col-sm-2 p-2 pb-3">
@@ -97,11 +97,8 @@
 									<i class="fas fa-file-excel"></i>
 								</button>
 								
-							<form id="formList" name="formList" method="POST" action="/member/memberForm?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">
-							 		<button class="btn btn-primary my-2 bbb" onclick="memberForm.jsp">
-										<i class="fas fa-user-plus"></i>
-									</button>
-							</form>
+<%--  							<form id="formList" name="formList" method="POST" action="/member/memberForm?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">
+ --%>								<a class="btn btn-primary my-2 bbb" href="javascript:goForm()"><i class="fas fa-user-plus"></i></a>	 		
 	<div class="aaa">
 		<p>총회원수: 120</p>
 	</div>
@@ -122,14 +119,15 @@
   <tbody>
   <c:forEach items="${list}" var="item" varStatus="status">	
     <tr>
-      <th scope="row"><c:out value=" ${item.ifmmSeq}"/></th>
+      <th scope="row"><c:out value="${item.ifmmSeq}"/></th>
       <td><input type="checkbox" name="checkbox1"></td>
-      <td><c:out value=" ${item.ifmmName}"/></td> 
-      <td><c:out value=" ${item.ifmmId}"/></td> <!-- 아이디 -->
-      <td><c:out value=" ${item.ifmpNumber}"/></td> <!-- 연락처  -->
-      <td><c:out value=" ${item.ifmeEmailFull}"/></td>
+      <td><a href="javascript:goView(<c:out value="${item.ifmmSeq}"/>)"><c:out value="${item.ifmmName}"/></a></td> 
+      <td><c:out value="${item.ifmmId}"/></td> <!-- 아이디 -->
+      <td><c:out value="${item.ifmpNumber}"/></td> <!-- 연락처  -->
+      <td><c:out value="${item.ifmeEmailFull}"/></td>
       <td><fmt:formatDate value="${item.regDateTime}" pattern="yyyy-MM-dd"/></td>
-      <td><a href="/member/memberView?ifmmSeq=<c:out value="${item.ifmmSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>">상세보기</a></td> <!--  memberView 앞에 / 썻다가 2시간 삽질 -->
+<%--       <td><a href="/member/memberView?ifmmSeq=<c:out value="${item.ifmmSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>">상세보기</a></td> <!--  memberView 앞에 / 썻다가 2시간 삽질 -->
+ --%>      
     </tr>
     </c:forEach>
     
@@ -160,7 +158,7 @@
 	</div>
 
 	<br>	
-	<div class="alert alert-danger" role="alert" style="width: 1280px; margin: auto;">*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 
+	<div class="alert alert-danger" role="alert" style="width: 1280px; margin: auto;">*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 삭제
 하지 않고 영구 보관합니다.</div>
 	<br>
 	<form id="" name="" method="get" action="/member/memberList">
@@ -188,6 +186,7 @@
 		  </div>
 	</nav>
 </form>	
+
 <%-- 		<nav aria-label="Page navigation example">
 		  <div class="ddd">
 		  <ul class="pagination pagination-sm ">
@@ -236,11 +235,16 @@
 			// 그 가져온 객체를 전달한다.
 		};
 
-		goForm = function(seq){
-			$("#ifcgSeq").val(seq);
-			$("#formList").attr("action", "/member/memberList");
+		goForm = function(){
+			$("#formList").attr("action", "/member/memberForm");
 			$("#formList").submit();
 		};
+		goView = function(seq){
+			$("#ifmmSeq").val(seq); // ifmmSeq란 데이터를 받아오겠다. val(seq) 출력 그리고 다음행 실행
+			$("#formList").attr("action", "/member/memberView"); // member/memberView로 넘겨주겠다.
+			$("#formList").submit(); // 그냥 공통적으로 submit는 실행해준다는 의미기 때문에 넣어줘야한다.
+		};
+		
 	</script>
  
  
