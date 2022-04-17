@@ -81,8 +81,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/memberInst")
-	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes)
-			throws Exception {
+	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
@@ -115,7 +114,7 @@ public class MemberController {
 		String uuidFileName = uuid + "." + ext; // 유일무의한 값 + . 타입을 붙쳐주면 완성
 
 		multipartFile.transferTo(new File("C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/uploaded/" + uuidFileName));
-
+		
 //		입력 실행
 		dto.setOriginalFileName(fileName); // DB에 넣어주는 코등
 		dto.setUuidFileName(uuidFileName);
@@ -152,7 +151,7 @@ public class MemberController {
 
 		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
-
+		System.out.println("vo.getThisPage():" + vo.getThisPage());
 		Member rt = service.selectOne(vo);
 
 		// 가지고 온 값을 jsp로 넘겨준다
@@ -177,21 +176,22 @@ public class MemberController {
 	 */
 
 	@RequestMapping(value = "/member/memberEdit")
-	public String memberEdit(MemberVo vo, Model model) throws Exception {
+	public String memberEdit(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 
 		System.out.println("dto.getIfmmSeq():" + vo.getIfmmSeq());
 		System.out.println("dto.getIfmmId():" + vo.getIfmmId());
 		System.out.println("dto.getIfmmName():" + vo.getIfmmName());
 		System.out.println("dto.getIfmpNumber():" + vo.getIfmpNumber());
 		System.out.println("dto.getIfmeEmailFull():" + vo.getIfmeEmailFull());
+		System.out.println("vo.getThisPage():" + vo.getThisPage());
 
 		List<Member> selectNation = service.selectListNation();
+
 		model.addAttribute("selectNation", selectNation);
 
 		Member rt = service.selectOne(vo); // vo 에서 데이터 가져오기
 
 		model.addAttribute("rt", rt); // jsp 들어가보면 list, item, rt 등등있는데 거기에 이름과 동일한 곳에 데이터를 넣겠다.
-
 		return "member/memberEdit";
 	}
 
@@ -209,8 +209,7 @@ public class MemberController {
 	 */
 
 	@RequestMapping(value = "/member/memberUpdt")
-	public String MemberUpdt(Member dto, MemberVo vo, Model model, RedirectAttributes redirectAttributes)
-			throws Exception {
+	public String MemberUpdt(Member dto,@ModelAttribute("vo") MemberVo vo, Model model, RedirectAttributes redirectAttributes) throws Exception {
 
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
@@ -229,12 +228,21 @@ public class MemberController {
 		System.out.println("dto.getIfmmEmailConsentNy(): " + dto.getIfmmEmailConsentNy());
 		System.out.println("dto.getIfmaLat(): " + dto.getIfmaLat());
 		System.out.println("dto.getIfmaLng(): " + dto.getIfmaLng());
-		System.out.println("dto.getIfnName():" + dto.getIfnName());
+		System.out.println("dto.getIfnSeq():" + dto.getIfnSeq());
+		System.out.println("vo.getThisPage():" + vo.getThisPage());
+		/* System.out.println("vo.getThisPage():" + vo.getThisPage()); */
+
+		/*
+		 * int result = service.insert(dto);
+		 * 
+		 * System.out.println("result: " + result);
+		 */
+		service.update(dto);  // 데이터를 받아오고 얘가 redirect보다 위에있어야 순서가 맞음.
 
 		vo.setIfmmSeq(dto.getIfmmSeq());
 
-		service.update(dto); // 데이터를 받아오고
-
+		redirectAttributes.addFlashAttribute("vo", vo);
+		/* redirectAttributes.addAttribute("thisPage" + vo.getThisPage()); */
 		return "redirect:/member/memberView"; // 업데이트 해주는 영역
 
 	}
