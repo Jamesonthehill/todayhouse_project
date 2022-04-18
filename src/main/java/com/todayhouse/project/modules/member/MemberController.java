@@ -81,7 +81,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/memberInst")
-	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
+	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes)
+			throws Exception {
 
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
@@ -113,8 +114,9 @@ public class MemberController {
 		String uuid = UUID.randomUUID().toString(); // randomUUID() : 유일무의한 이름을 생성하는함수
 		String uuidFileName = uuid + "." + ext; // 유일무의한 값 + . 타입을 붙쳐주면 완성
 
-		multipartFile.transferTo(new File("C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/uploaded/" + uuidFileName));
-		
+		multipartFile.transferTo(new File(
+				"C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/uploaded/" + uuidFileName));
+
 //		입력 실행
 		dto.setOriginalFileName(fileName); // DB에 넣어주는 코등
 		dto.setUuidFileName(uuidFileName);
@@ -209,7 +211,8 @@ public class MemberController {
 	 */
 
 	@RequestMapping(value = "/member/memberUpdt")
-	public String MemberUpdt(Member dto,@ModelAttribute("vo") MemberVo vo, Model model, RedirectAttributes redirectAttributes) throws Exception {
+	public String MemberUpdt(Member dto, @ModelAttribute("vo") MemberVo vo, Model model,
+			RedirectAttributes redirectAttributes) throws Exception {
 
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
@@ -237,7 +240,7 @@ public class MemberController {
 		 * 
 		 * System.out.println("result: " + result);
 		 */
-		service.update(dto);  // 데이터를 받아오고 얘가 redirect보다 위에있어야 순서가 맞음.
+		service.update(dto); // 데이터를 받아오고 얘가 redirect보다 위에있어야 순서가 맞음.
 
 		vo.setIfmmSeq(dto.getIfmmSeq());
 
@@ -345,41 +348,54 @@ public class MemberController {
 
 		return returnMap;
 	}
+
 	/* NaverLoginBO */
 	private NaverLoginBo naverLoginBO;
 
 	/* NaverLoginBO */
 	@Autowired
-	private void setNaverLoginBO(NaverLoginBo naverLoginBO){
+	private void setNaverLoginBO(NaverLoginBo naverLoginBO) {
 		this.naverLoginBO = naverLoginBO;
 	}
-	
-    @RequestMapping("/user/loginForm")
-    public ModelAndView login(HttpSession session) {
-        /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
-        String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-        
-        /* 생성한 인증 URL을 View로 전달 */
-        return new ModelAndView("/user/login/loginForm", "url", naverAuthUrl);
-    }
-        
-    @RequestMapping("/user/callback")
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session) throws IOException {
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-		
-		//로그인 사용자 정보를 읽어온다.
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
-        session.setAttribute("result", apiResult);
-        System.out.println("result"+apiResult);
-        
-        session.setAttribute("sessSeq", 0); //생략 가능
-		
-		return "redirect:/index/indexView"; //사용자설정
+
+	@RequestMapping("/user/loginForm")
+	public ModelAndView login(HttpSession session) {
+		/* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
+		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
+
+		/* 생성한 인증 URL을 View로 전달 */
+		return new ModelAndView("/user/login/loginForm", "url", naverAuthUrl);
 	}
 
+	@RequestMapping("/user/callback")
+	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session)
+			throws IOException {
+		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
 
+		// 로그인 사용자 정보를 읽어온다.
+		String apiResult = naverLoginBO.getUserProfile(oauthToken);
+//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
+		session.setAttribute("result", apiResult);
+		System.out.println("result" + apiResult);
 
+		session.setAttribute("sessSeq", 0); // 생략 가능
 
+		return "redirect:/index/indexView"; // 사용자설정
+	}
+
+	@RequestMapping(value = "memberMultiDele")
+	public String memberMultiDele(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
+
+		String[] checkboxSeqArray = vo.getCheckboxSeqArray();
+		
+		for(String checkboxSeq : checkboxSeqArray) {
+			vo.setIfmmSeq(checkboxSeq);
+			service.delete(vo);
+		}
+		redirectAttributes.addFlashAttribute("vo", vo);
+		
+		return "redirect:/member/memberList";
+		
+	}
 
 }
