@@ -6,6 +6,7 @@ public class MemberVo {
 	private String ifmmSeq;
 	private String ifmmId;
 	private String ifmmName;
+	private String ifmmDelNy;
 	/* private Integer regDateTime; */
 	
 	
@@ -27,6 +28,10 @@ public class MemberVo {
 	
 	//	infrmemberEmail
 	private String ifmeEmailFull;
+	
+	
+	// uelete
+	private String[] checkboxSeqArray;
 
 //	paging
 	private int thisPage = 1;									// 현재 페이지
@@ -69,7 +74,7 @@ public class MemberVo {
 	public void setIfmmName(String ifmmName) {
 		this.ifmmName = ifmmName;
 	}
-
+	
 
 
 	/*
@@ -78,6 +83,14 @@ public class MemberVo {
 	 * public void setRegDateTime(Integer regDateTime) { this.regDateTime =
 	 * regDateTime; }
 	 */
+
+	public String getIfmmDelNy() {
+		return ifmmDelNy;
+	}
+
+	public void setIfmmDelNy(String ifmmDelNy) {
+		this.ifmmDelNy = ifmmDelNy;
+	}
 
 	public String getShIfmmName() {
 		return shIfmmName;
@@ -201,6 +214,14 @@ public class MemberVo {
 
 	public void setIfmeEmailFull(String ifmeEmailFull) {
 		this.ifmeEmailFull = ifmeEmailFull;
+	}
+
+	public String[] getCheckboxSeqArray() {
+		return checkboxSeqArray;
+	}
+
+	public void setCheckboxSeqArray(String[] checkboxSeqArray) {
+		this.checkboxSeqArray = checkboxSeqArray;
 	}
 
 	public int getThisPage() {
