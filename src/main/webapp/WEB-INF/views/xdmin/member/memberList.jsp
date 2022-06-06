@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
-
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -22,7 +20,7 @@
 <title>인테리어 플랫폼 오늘의 집</title>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid" style="background-color: #00bfff;">
-		<a class="navbar-brand" href="/member/memberList"><img src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
+		<a class="navbar-brand" href="http://localhost:8070/member/memberList"><img src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -48,26 +46,19 @@
 				<div class="col-sm-2 p-2 pb-3">
 					<select class="form-select" name="shOptionDate">
 						<option value="">::날짜::</option>
-						<option value="1">등록일</option>
-						<option value="2">수정일</option>
-						<option>끝날짜</option>
+						<option value="1">시작일</option>
+						<option value="2">종료일</option>
 					</select>
 				</div>
 				<div class="col-sm-2 p-2 pb-3">
 					<%-- <fmt:parseDate var="shDateStart" value="${vo.shDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 					<%-- <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd"/> --%>
-					<input class="form-control shDate" type="text" id="shDateStart"
-						name="shDateStart"
-						<fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd HH:mm:ss"/>
-						placeholder="시작일" autocomplete="off">
+					<input class="form-control shDate" type="text" id="shDateStart" name="shDateStart" <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="시작일" autocomplete="off">
 					<%-- <input class="form-control" type="text" name="shJoinValue" value="<c:out value="${vo.shJoinValue}"/>" placeholder="시작일">  --%>
 				</div>
 				<div class="col-sm-2 p-2 pb-3">
 					<%-- <fmt:parseDate var="shDateEnd" value="${vo.shDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
-					<input class="form-control shDate" type="text" id="shDateEnd"
-						name="shDateEnd"
-						<fmt:formatDate value="${shDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"/>
-						placeholder="종료일" autocomplete="off">
+					<input class="form-control shDate" type="text" id="shDateEnd" name="shDateEnd"	<fmt:formatDate value="${shDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="종료일" autocomplete="off">
 					<!-- <input class="form-control shDate" type="text" id="abcDate" placeholder="종료일"> -->
 				</div>
 			</div>
@@ -110,7 +101,7 @@
  --%>
 	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()"><i class="fas fa-user-plus"></i></a>
 	<div class="aaa">
-		<p>총회원수: 120</p>
+		<p>총회원수: ${selectOneCount} 명</p> 
 	</div>
 	<table class="table table-hover">
 		<thead>
@@ -121,7 +112,7 @@
 				<th scope="col" style="background-color: #00bfff;" style="font-family: white;">아이디</th>
 				<th scope="col" style="background-color: #00bfff;" style="font-family: white;">연락처</th>
 				<th scope="col" style="background-color: #00bfff;" style="font-family: white;">이메일</th>
-				<th scope="col" style="background-color: #00bfff;" style="font-family: white;">가입</th>
+				<th scope="col" style="background-color: #00bfff;" style="font-family: white;">가입날짜</th>
 
 			</tr>
 		</thead>
@@ -165,7 +156,7 @@
 	</div>
 
 	<br>
-	<div class="alert alert-danger" role="alert" style="width: 1280px; margin: auto;">*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 삭제 하지 않고 영구 보관합니다.</div>
+	<input class="alert alert-danger col-sm-2" style="margin: auto;" value="*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 삭제 하지 않고 영구 보관합니다.">
 	<br>
 	<form id="" name="" method="get" action="/member/memberList">
 		<nav aria-label="Page navigation example">
@@ -253,7 +244,7 @@
 	});
 	</script>
 
-<script>
+	<script>
 	
 				$("#checkboxAll").click(function() {
 				 	if($("#checkboxAll").is(":checked")) $("input[name=checkboxSeq]").prop("checked", true);

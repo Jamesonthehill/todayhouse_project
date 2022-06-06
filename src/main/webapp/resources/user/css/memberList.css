@@ -1,0 +1,35 @@
+			
+    		*{
+    		font-family: 휴먼모음T;
+    		}
+    		html, body{
+    		text-align: center;
+    		background-color: whitesmoke;
+    		}
+			.ddd{
+				display: grid; /* 가로를 가운데로 정렬해줌 */
+    			place-items: center;  /*  가운데 정렬시킴 */
+				border: none;
+				}
+			.aaa{
+				float: left;
+				margin-left: 5px;
+/* 				transform: translateY(20%);
+ */			}
+			.bbb {
+				float: right;
+				margin-left: 5px;
+			}
+			
+			.ccc{
+				display: inline-block;
+			}
+			.eee{
+				width: 150px;
+				padding-left: 50px;
+				
+			}
+			.fff{
+				margin: auto;
+			}
+		/* 	   list-style:none;  이거 li 점 없애기 잊지말자*/ 

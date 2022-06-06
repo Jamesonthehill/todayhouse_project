@@ -6,7 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 <!-- 공동코드 선언  -->
-<jsp:useBean id="CodeServiceImpl" class="com.todayhouse.project.modules.code.CodeServiceImpl"/>
+<%-- <jsp:useBean id="CodeServiceImpl" class="com.todayhouse.project.modules.code.CodeServiceImpl"/> --%>
 
 
 <!doctype html>
@@ -25,7 +25,7 @@
 <title>인테리어 플랫폼 오늘의 집</title>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid" style="background-color: #00bfff;">
-		<a class="navbar-brand" href="http://localhost:8080/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
+		<a class="navbar-brand" href="http://localhost:8070/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -164,7 +164,7 @@
 				</tr>
 			</table>
 		</div>
-		<div style="height: 10px;"></div>
+<!-- 		<div style="height: 10px;"></div>
 		<table class="table table-hover">
 			<tr>
 				<td rowspan="4"
@@ -197,7 +197,7 @@
 		</table>
 
 		<div style="height: 10px;"></div>
-
+ -->
 
 	</form>
 </body>

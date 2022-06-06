@@ -44,11 +44,11 @@ public class MemberDao {
 	
 	
 	// delete
-	public int delete(MemberVo vo) { return sqlSession.delete(namespace + ".delete", vo);}
 	public int deleteNumber(MemberVo vo) { return sqlSession.delete(namespace + ".deleteNumber", vo);}
 	public int deleteEmail(MemberVo vo) { return sqlSession.delete(namespace + ".deleteEmail", vo);}
 	public int deleteAddress(MemberVo vo) { return sqlSession.delete(namespace + ".deleteAddress", vo);}
 	public int deleteNationality(MemberVo vo) { return sqlSession.delete(namespace + ".deleteNationality", vo);}
+	public int delete(MemberVo vo) { return sqlSession.delete(namespace + ".delete", vo);}
 	
 	// login
 	
