@@ -101,7 +101,7 @@
  --%>
 	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()"><i class="fas fa-user-plus"></i></a>
 	<div class="aaa">
-		<p>총회원수: ${selectOneCount} 명</p> 
+		<p>총회원수: ${selectOneCount } 명</p> 
 	</div>
 	<table class="table table-hover">
 		<thead>
@@ -156,7 +156,7 @@
 	</div>
 
 	<br>
-	<input class="alert alert-danger col-sm-2" style="margin: auto;" value="*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 삭제 하지 않고 영구 보관합니다.">
+	<div class="alert alert-danger d-sm-none d-md-block" style="width: 1280px; margin: auto;">*회원자료 삭제시 다른 회원이 회원아이디를 사용하지 못하도록 회원아이디, 이름은 삭제 하지 않고 영구 보관합니다.</div>
 	<br>
 	<form id="" name="" method="get" action="/member/memberList">
 		<nav aria-label="Page navigation example">
