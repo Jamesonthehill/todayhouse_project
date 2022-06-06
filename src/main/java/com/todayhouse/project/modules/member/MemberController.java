@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.github.scribejava.core.model.OAuth2AccessToken;
-import com.todayhouse.project.modules.naver.NaverLoginBo;
 
 @Controller
 public class MemberController {
@@ -33,6 +32,10 @@ public class MemberController {
 	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
 
 		int count = service.selectOneCount(vo);
+		
+		model.addAttribute("selectOneCount", count);
+		
+//		model.addAttribute("count", service.selectOneCount(vo));
 
 		/*
 		 * vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
@@ -81,8 +84,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/memberInst")
-	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes)
-			throws Exception {
+	public String memberInst(Model model, Member dto, MemberVo vo, RedirectAttributes redirectAttributes) throws Exception {
 
 		System.out.println("dto.getIfmmId(): " + dto.getIfmmId());
 		System.out.println("dto.getIfmmName(): " + dto.getIfmmName());
@@ -283,7 +285,7 @@ public class MemberController {
 		/*
 		 * redirectAttributes.addAttribute("thisPage" + vo.getThisPage());
 		 * redirectAttributes.addAttribute("shOption" + vo.getShOption());
-		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());rmsep
+		 * redirectAttributes.addAttribute("shValue" + vo.getShValue());
 		 */
 
 		return "redirect:/member/memberList?shifmmSeq=" + vo.getIfmmSeq(); // 업데이트 해주는 영역
@@ -349,39 +351,6 @@ public class MemberController {
 		return returnMap;
 	}
 
-	/* NaverLoginBO */
-	private NaverLoginBo naverLoginBO;
-
-	/* NaverLoginBO */
-	@Autowired
-	private void setNaverLoginBO(NaverLoginBo naverLoginBO) {
-		this.naverLoginBO = naverLoginBO;
-	}
-
-	@RequestMapping("/user/loginForm")
-	public ModelAndView login(HttpSession session) {
-		/* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
-		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-
-		/* 생성한 인증 URL을 View로 전달 */
-		return new ModelAndView("/user/login/loginForm", "url", naverAuthUrl);
-	}
-
-	@RequestMapping("/user/callback")
-	public String callback(@RequestParam String code, @RequestParam String state, HttpSession session)
-			throws IOException {
-		OAuth2AccessToken oauthToken = naverLoginBO.getAccessToken(session, code, state);
-
-		// 로그인 사용자 정보를 읽어온다.
-		String apiResult = naverLoginBO.getUserProfile(oauthToken);
-//      System.out.println(naverLoginBO.getUserProfile(oauthToken).toString());
-		session.setAttribute("result", apiResult);
-		System.out.println("result" + apiResult);
-
-		session.setAttribute("sessSeq", 0); // 생략 가능
-
-		return "redirect:/index/indexView"; // 사용자설정
-	}
 
 	@RequestMapping(value = "memberMultiDele")
 	public String memberMultiDele(@ModelAttribute("vo") MemberVo vo, Member dto, RedirectAttributes redirectAttributes) throws Exception {
