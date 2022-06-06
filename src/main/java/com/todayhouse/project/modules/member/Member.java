@@ -14,6 +14,7 @@ public class Member {
 	private Integer ifmmDelNy;
 	private String ifmmPassword;
 	private String ifmmPassword2;
+	private Integer totalMember;
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */ // Date 타입이 스트링으로 바뀌어들어감
 	private String ifmmDob;
 	private String ifmmGenderCd;
@@ -42,6 +43,7 @@ public class Member {
 // infrNationality
 	private String ifnSeq;
 	private String ifnName;
+	private String ifnNation;
 // infrmemberAddress
 	private String ifmaAddress1;
 	private String ifmaAddress2;
@@ -153,6 +155,13 @@ public class Member {
 	public void setIfmmPassword2(String ifmmPassword2) {
 		this.ifmmPassword2 = ifmmPassword2;
 	}
+	
+	public Integer getTotalMember() {
+		return totalMember;
+	}
+	public void setTotalMember(Integer totalMember) {
+		this.totalMember = totalMember;
+	}
 	public String getIfnSeq() {
 		return ifnSeq;
 	}
@@ -164,6 +173,13 @@ public class Member {
 	}
 	public void setIfnName(String ifnName) {
 		this.ifnName = ifnName;
+	}
+	
+	public String getIfnNation() {
+		return ifnNation;
+	}
+	public void setIfnNation(String ifnNation) {
+		this.ifnNation = ifnNation;
 	}
 	public String getIfmmGenderCd() {
 		return ifmmGenderCd;
