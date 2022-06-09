@@ -8,7 +8,7 @@ public interface MemberService {
 	public int selectOneCount(MemberVo vo) throws Exception;
 	public List<Member> selectList(MemberVo vo) throws Exception; 
 	public Member selectOne(MemberVo vo) throws Exception;
-	public Member selectOneLogin(Member dto) throws Exception;
+	public Member selectOneLogin(Member dto) throws Exception;  // 로그인
 	public List<Member> selectListNation() throws Exception; 
 	/* public Member selectGender(MemberVo vo) throws Exception; */
 
@@ -25,6 +25,7 @@ public interface MemberService {
 	
 	
 	public int delete(MemberVo vo) throws Exception;
+	
 	/*
 	 * public int deleteId(MemberVo vo) throws Exception; public int
 	 * deleteName(MemberVo vo) throws Exception; public int deleteNumber(MemberVo

@@ -65,7 +65,7 @@
 					<h5 class="modal-title" id="staticBackdropLabel">확인</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
-				<div class="modal-body">저장하시겠습니까?</div>
+				<div class="modal-body" style="text-align: center;">저장하시겠습니까?</div>
 				<div class="modal-footer">
 					<input type="submit"  class="btn btn-primary" id="btnSubmit" value="네"> 
 					<%-- <a type="submit" class="btn btn-primary" id="btnSubmit" href="/member/memberInst?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">네</a> --%>
@@ -78,7 +78,7 @@
 	<hr>
 		<div class="row">
 			<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2" style="margin: auto;">
-				<img src="" style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb">
+				<img style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb">
 			</div>
 			<div class="col-4 col-md-1 mb-2"></div>
 		</div>
@@ -418,7 +418,8 @@
 						
 						document.getElementById("ifmaLatArray0").value=x;
 						document.getElementById("ifmaLngArray0").value=y;
- */						</script>
+ */					
+ 				</script>
 		<script type="text/javascript">
 	$(function() {
 		$("#ifmmPwdValidFeedBack").hide();

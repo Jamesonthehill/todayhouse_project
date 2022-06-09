@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.todayhouse.project.common.util.UtilDateTime;
+
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -32,12 +34,16 @@ public class MemberServiceImpl implements MemberService {
 	public int insert(Member dto) throws Exception {
 		/* dto.setRegDateTime(UtilDateTime.nowDate()); */
 
+		dto.setRegDateTime(UtilDateTime.nowDate());
+		
 		dao.insert(dto); // 순서대로 하는거 잊지마셈.
 		dao.insertMemberPhone(dto);
 		dao.insertMemberEmail(dto);
 		dao.insertMemberAddress(dto);
 		dao.insertMemberNationality(dto);
 		// email 과련 함수 호출
+		
+		
 		return 1;
 
 	}

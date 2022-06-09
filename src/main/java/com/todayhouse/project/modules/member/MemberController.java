@@ -67,9 +67,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/login/loginForm")
-	public String loginForm() throws Exception {
+	public String loginForm(Member dto, Model model) throws Exception {
 
 		return "login/loginForm";
+	}
+	@RequestMapping(value = "/index/indexView")
+	public String indexView(Member dto, Model model) throws Exception {
+		
+		return "index/indexView";
+	}
+	@RequestMapping(value = "/main/main")
+	public String main(Member dto, Model model) throws Exception {
+		
+		return "main/main";
 	}
 
 	@RequestMapping(value = "/member/memberForm")

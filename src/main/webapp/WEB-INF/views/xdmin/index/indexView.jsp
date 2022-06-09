@@ -45,7 +45,7 @@
 	</c:if>
 	<br><br>
 	바로가기:	<a href="../member/memberList">관리자페이지</a> &nbsp
-	바로가기:	<a href="#">유저페이지</a>
+	바로가기:	<a href="../main/main">유저페이지</a>
 	
 	
 	

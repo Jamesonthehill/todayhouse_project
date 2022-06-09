@@ -21,9 +21,45 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid" style="background-color: #00bfff;">
 		<a class="navbar-brand" href="http://localhost:8070/member/memberList"><img src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
+				<li class="nav-item dropdown d-flex align-items-center justify-content-center flex-column h-100"><a href="#" class="nav-link dropdown-toggle height-35 px-2 d-flex align-items-center justify-content-center" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside">
+				<div class="d-flex align-items-center">
+
+					<!--Avatar with status-->
+					<div class="me-sm-2 avatar xs">
+						<c:choose>
+							<c:when test="${empty uuidFileName}">
+								<img style="width: 10%; height:10%; float: right" src="/resources/user/image/profileDefault.png" class="rounded-circle img-fluid" alt="">
+							</c:when>
+							<c:otherwise>
+								<img style="width: 10%; height:10%; float: right" src="<c:out value="${uuidFileName}"/>" class="rounded-circle img-fluid" alt="">
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<span class="d-none d-md-inline-block"><c:out value="${sessName}"/></span>
+				</div>
+			</a>
+
+			<div class="dropdown-menu mt-0 p-0 dropdown-menu-end overflow-hidden">
+				<!--User meta-->
+				<div class="position-relative overflow-hidden px-3 pt-4 pb-9 bg-gradient-primary text-white">
+					<!--Divider-->
+					<svg style="transform: rotate(-180deg);" preserveAspectRatio="none" class="position-absolute start-0 bottom-0 w-100 dropdown-wave" fill="currentColor" height="24" viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" opacity=".25" />
+                                <path d="M0 0v15.81c13 21.11 27.64 41.05 47.69 56.24C99.41 111.27 165 111 224.58 91.58c31.15-10.15 60.09-26.07 89.67-39.8 40.92-19 84.73-46 130.83-49.67 36.26-2.85 70.9 9.42 98.6 31.56 31.77 25.39 62.32 62 103.63 73 40.44 10.79 81.35-6.69 119.13-24.28s75.16-39 116.92-43.05c59.73-5.85 113.28 22.88 168.9 38.84 30.2 8.66 59 6.17 87.09-7.5 22.43-10.89 48-26.93 60.65-49.24V0z" opacity=".5" />
+                                <path d="M0 0v5.63C149.93 59 314.09 71.32 475.83 42.57c43-7.64 84.23-20.12 127.61-26.46 59-8.63 112.48 12.24 165.56 35.4C827.93 77.22 886 95.24 951.2 90c86.53-7 172.46-45.71 248.8-84.81V0z" />
+                              </svg>
+					<div class="position-relative">
+						<h5 class="mb-1" style="color: skyblue;"><c:out value="${sessName}"/></h5>
+						<p class="text-muted small mb-0 lh-1"><c:out value="${sessId}"/></p>
+					</div>
+				</div>
+				<div class="pt-2">
+					<hr class="my-2">
+					<a class="dropdown-item d-flex align-items-center" id="btnLogout">
+						<i class="fe-1x me-3" data-feather="log-out"></i> 로그아웃
+					</a>
+				</div>
+			</div></li>
 	</div>
 </nav>
 
@@ -46,19 +82,18 @@
 				<div class="col-sm-2 p-2 pb-3">
 					<select class="form-select" name="shOptionDate">
 						<option value="">::날짜::</option>
-						<option value="1">시작일</option>
-						<option value="2">종료일</option>
+						<option value="1" <c:if test="${vo.shOptionDate eq 1}">selected</c:if>>최초가입날짜</option>
 					</select>
 				</div>
 				<div class="col-sm-2 p-2 pb-3">
 					<%-- <fmt:parseDate var="shDateStart" value="${vo.shDateStart }" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
 					<%-- <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd"/> --%>
-					<input class="form-control shDate" type="text" id="shDateStart" name="shDateStart" <fmt:formatDate value="${shDateStart}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="시작일" autocomplete="off">
+					<input class="form-control shDate" type="text" id="shDateStart" name="shDateStart" value="<c:out value="${vo.shDateStart}"/>" placeholder="시작일" autocomplete="off">
 					<%-- <input class="form-control" type="text" name="shJoinValue" value="<c:out value="${vo.shJoinValue}"/>" placeholder="시작일">  --%>
 				</div>
 				<div class="col-sm-2 p-2 pb-3">
 					<%-- <fmt:parseDate var="shDateEnd" value="${vo.shDateEnd }" pattern="yyyy-MM-dd HH:mm:ss"/> --%>
-					<input class="form-control shDate" type="text" id="shDateEnd" name="shDateEnd"	<fmt:formatDate value="${shDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"/> placeholder="종료일" autocomplete="off">
+					<input class="form-control shDate" type="text" id="shDateEnd" name="shDateEnd"	value="<c:out value="${vo.shDateEnd}"/>" placeholder="종료일" autocomplete="off">
 					<!-- <input class="form-control shDate" type="text" id="abcDate" placeholder="종료일"> -->
 				</div>
 			</div>
@@ -79,13 +114,10 @@
 			</div>
 			<button class="btn btn-warning my-2 aaa" type="submit" name="search"
 				onclick="/memberList.jsp" style="width: 50px; hieght: 15px;">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-					fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-								<path
-						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"> <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 							</svg>
 			</button>
-			<button class="btn btn-danger my-2 aaa" onclick="/memberList.jsp" style="width: 50px; hieght: 15px;">
+			<button class="btn btn-danger my-2 aaa" onclick="/member/memberList.jsp" style="width: 50px; hieght: 15px;">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
 								<path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
 								<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" /></svg>
@@ -97,8 +129,6 @@
 		<i class="fas fa-file-excel"></i>
 	</button>
 
-	<%--  							<form id="formList" name="formList" method="POST" action="/member/memberForm?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">
- --%>
 	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()"><i class="fas fa-user-plus"></i></a>
 	<div class="aaa">
 		<p>총회원수: ${selectOneCount } 명</p> 
@@ -190,7 +220,14 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
+<script src="../../../../resources/xdmin/js/validation.js"></script> 
 <link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet" />
+
+<script src="/resources/assets/vendor/feather.min.js"></script>
+	<script src="/resources/assets/js/theme.bundle.js"></script>
+	<script>
+		feather.replace()
+	</script>
 
 <script type="text/javascript">
 	function selectAll(selectAll) {
@@ -221,7 +258,6 @@
 		};
 		
 	</script>
-
 
 
 
@@ -262,7 +298,7 @@
 				
 	</script>
 	
-	<script>
+		<script>
 	
 	var goUrlMultiUele ="/member/memberMultiUele";
 	var goUrlMultiDele ="/memberMultiDele";
@@ -298,6 +334,38 @@
 				
 				}); 
 				
+	</script>
+	
+
+	 <script type = "text/javascript">
+		$("#btnSubmit").on("click", function() {
+			
+			if(!checkNull($("#shOption"), $("#shOption").val(), "데이터를 입력해주세요.")) return false;
+			if(!checkNull($("#shValue"), $("#shValue").val(), "비밀번호를 입력해주세요")) return false;
+			if(!checkNull($("#ifmmDob"), $("#ifmmDob").val(), "생일을 입력해주세요")) return false;
+
+			});
+	</script> 
+	
+	<script type="text/javascript">
+	$("#btnLogout").on("click", function() {
+		$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/logoutProc"
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/login/loginForm";
+					} else {
+						alert("회원없음");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+	});	
 	</script>
 
 </html>

@@ -19,7 +19,7 @@
 		<choose>
 			<!-- <when test="shOptionDate == 0">AND a.regDateTime disabled #{shDateStart} AND #{shDateEnd}</when> -->
 			<when test="shOptionDate == 1">AND a.regDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
-			<when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when>
+			<!-- <when test="shOptionDate == 2">AND a.modDateTime BETWEEN #{shDateStart} AND #{shDateEnd}</when> -->
 			<!-- <when test="shOptionDate == 3">AND a.ifmmDob BETWEEN #{shDateStart} AND #{shDateEnd}</when> -->
 			<!-- <when test="shJoinOption == 5">AND a.regDateTime LIKE concat('%',#{shJoinValue},'%')</when> -->
 			<!-- <when test="shJoinOption == 6">AND regDateTime LIKE concat('%',#{shJoinValue},'%')</when> -->
