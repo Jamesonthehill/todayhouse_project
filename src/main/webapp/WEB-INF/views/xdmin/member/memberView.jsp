@@ -12,29 +12,13 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="../../../../resources/xdmin/css/memberView.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://kit.fontawesome.com/b322818db5.js" crossorigin="anonymous"></script>
-<script src="../../../../resources/common/js/validation.js"></script>
-
-<title>인테리어 플랫폼 오늘의 집</title>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<div class="container-fluid" style="background-color: #00bfff;">
-		<a class="navbar-brand" href="http://localhost:8070/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-	</div>
-</nav>
+<link rel="stylesheet"	href="/resources/xdmin/css/memberView.css">
+						<!-- include 처리 1번 -->
+					<%@include file="../include/pageHeader.jsp"%>
 </head>
 
 
-<body style="float: center;">
+<body style="width: 1080px;">
 	<form id="formList" name="formList" method="POST">
 		<%-- <input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">  --%>
 		<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${rt.ifmmSeq}"/>">
@@ -52,11 +36,10 @@
 			<%-- 	<a class="btn btn-primary" href="/member/memberList?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption }"/>&shValue=<c:out value="${vo.shValue }"/>">목	록</a>
 				<a class="btn btn-info" style="color:white;" href="/member/memberEdit?ifmmSeq=<c:out value="${rt.ifmmSeq}"/>">수	정</a>
 				<button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-family: 잘풀리는하루; color:white;">삭	제</button> --%>
-			<a class="btn btn-primary" href="javascript:goList(<c:out value="${vo.thisPage}" default="1"/>)">목 록</a> 
+			<a class="btn btn-primary" style="margin-left: 10px" href="javascript:goList(<c:out value="${vo.thisPage}" default="1"/>)">목 록</a> 
 			<a class="btn btn-info" style="color: white;" href="javascript:goEdit(<c:out value="${rt.ifmmSeq}"/>)">수 정</a> 
 			<a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="color: white;">삭 제</a>
 		</div>
-		<br>
 		<br>
 		<!-- Modal -->
 		<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -75,30 +58,30 @@
 				</div>
 			</div>
 		</div>
-
+		<br>
 
 		<hr>
 		<div>
 			<div class="row">
-				<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2"
-					style="margin: auto;">
-					<img src="/resources/uploaded/<c:out value="${rt.uuidFileName}"/>"
-						style="width: 150px; height: 150px;"
-						class="rounded-circle border border-5">
+				<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2"	style="margin: auto;">
+						<c:choose>
+							<c:when test="${empty rt.uuidFileName}">
+								<img style="width: 150px; height:150px;" src="/resources/user/image/profileDefault.png" class="rounded-circle border border-5" alt="">
+							</c:when>
+							<c:otherwise>
+								<img style="width: 150px; height:150px;" src="/resources/user/image/<c:out value="${rt.uuidFileName}"/>" class="rounded-circle border border-5" alt="">
+							</c:otherwise>
+						</c:choose>
 				</div>
 				<%-- <a href="/infra/resources/uploaded/<c:out value="${item.uuidFileName}"/>">파일 다운로드</a> --%>
 				<!-- <img src="/resources/uploaded/wolfgrey.jpg"> -->
-				<div class="col-4 col-md-1 mb-2"></div>
-			</div>
+			</div><br><br>
 
 			<table class="table table-hover">
 				<tr>
-					<td rowspan="10"
-						style="background-color: #00bfff; width: 10px; color: white; padding-top: 110px;">인적사항</td>
-					<td rowspan="2"
-						style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">이름</td>
-					<td style="background-color: #00bfff; color: white; width: 80px;">한
-						글</td>
+					<td rowspan="10"	style="background-color: #00bfff; width: 10px; color: white; padding-top: 110px;">인적사항</td>
+					<td rowspan="2" style="background-color: #00bfff; color: white; text-align: center; margin: auto; width: 80px; padding-top: 30px;">이름</td>
+					<td style="background-color: #00bfff; color: white; width: 80px;">한	글</td>
 					<td><c:out value="${rt.ifmmName}" /></td>
 					<td style="background-color: #00bfff; color: white; width: 130px;">비밀번호</td>
 					<td><c:out value="${rt.ifmmPassword}" /></td>
@@ -130,8 +113,7 @@
 				</tr>
 				<tr>
 					<td style="background-color: #00bfff; color: white;">가입날짜</td>
-					<td colspan="2"><fmt:formatDate value="${rt.regDateTime}"
-							pattern="yyyy-MM-dd" /></td>
+					<td colspan="2"><fmt:formatDate value="${rt.regDateTime}" pattern="yyyy-MM-dd" /></td>
 					<td style="background-color: #00bfff; color: white;">마케팅 수신동의</td>
 					<td colspan="2"><input type="radio"
 						<c:if test="${rt.ifmmMarketing eq 'email' }">checked </c:if>
@@ -275,5 +257,25 @@
 		});
 	</script> -->
 
+	<script type="text/javascript">
+	$("#btnLogout").on("click", function() {
+		$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/logoutProc"
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/login/loginForm";
+					} else {
+						alert("회원없음");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+	});	
+	</script>
 
 </html>

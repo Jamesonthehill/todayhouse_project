@@ -9,6 +9,7 @@ public interface MemberService {
 	public List<Member> selectList(MemberVo vo) throws Exception; 
 	public Member selectOne(MemberVo vo) throws Exception;
 	public Member selectOneLogin(Member dto) throws Exception;  // 로그인
+	public Member selectOneProfile(Member dto) throws Exception;  // 프로필뜨게
 	public List<Member> selectListNation() throws Exception; 
 	/* public Member selectGender(MemberVo vo) throws Exception; */
 

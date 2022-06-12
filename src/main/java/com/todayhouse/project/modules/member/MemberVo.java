@@ -7,6 +7,8 @@ public class MemberVo {
 	private String ifmmId;
 	private String ifmmName;
 	private String ifmmDelNy;
+	private String originalFileName;
+	private String uuidFileName;
 	/* private Integer regDateTime; */
 	
 	
@@ -90,6 +92,22 @@ public class MemberVo {
 
 	public void setIfmmDelNy(String ifmmDelNy) {
 		this.ifmmDelNy = ifmmDelNy;
+	}
+
+	public String getOriginalFileName() {
+		return originalFileName;
+	}
+
+	public void setOriginalFileName(String originalFileName) {
+		this.originalFileName = originalFileName;
+	}
+
+	public String getUuidFileName() {
+		return uuidFileName;
+	}
+
+	public void setUuidFileName(String uuidFileName) {
+		this.uuidFileName = uuidFileName;
 	}
 
 	public String getShIfmmName() {

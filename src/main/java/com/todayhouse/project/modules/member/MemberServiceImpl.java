@@ -87,6 +87,10 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectOneLogin(Member dto) throws Exception {
 		return dao.selectOneLogin(dto);
 	}
+	@Override
+	public Member selectOneProfile(Member dto) throws Exception {
+		return dao.selectOneProfile(dto);
+	}
 	/*
 	 * @Override public Member selectGender(MemberVo vo) throws Exception { return
 	 * dao.selectGender(vo); }
