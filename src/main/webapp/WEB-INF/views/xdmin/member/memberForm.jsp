@@ -9,40 +9,13 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="../../../../resources/xdmin/css/memberEdit.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://kit.fontawesome.com/b322818db5.js"crossorigin="anonymous"></script>
-<title>인테리어 플랫폼 오늘의 집</title>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid" style="background-color:  #00bfff;">
-    <a class="navbar-brand" href="http://localhost:8070/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</nav>
-
-<style type="text/css">
-	.addScroll {
-		overflow-y: auto;
-		height : 90px;
-	}
-	
-	.input-file-button {
-		padding : auto;
-		cursor : pointer;
-	}
-
-</style>
-
+		<link rel="stylesheet"	href="/resources/xdmin/css/memberForm.css">
+					<!-- include 처리 1번 -->
+					<%@include file="../include/pageHeader.jsp"%>
 </head>
 
-<body style="float: left;">
+<body style="width: 1080px;">
 		<form id="formList" name="formList" method="POST" action="/member/memberInst" enctype="multipart/form-data">
 		<input type="hidden" id="ifmmSeq" name="ifmmSeq">
 		
@@ -50,14 +23,12 @@
 		회원등록
 	</h1>
 	<hr>
-	<a type="button" class="btn btn-secondary" href="/member/memberList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">취	소</a>
-	<a href="/member/memberList" type="button" class="btn btn-info" style="color:white;" onclick="here()">홈</a>
-	<!-- Button trigger modal -->
-	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">추	가</button>
-
-	<!-- Button trigger modal -->
-
-	<!-- Modal -->
+		<a type="button" class="btn btn-secondary" style="margin-left: 10px" href="/member/memberList?thisPage=<c:out value="${vo.thisPage}"/>&shOption=<c:out value="${vo.shOption}"/>&shValue=<c:out value="${vo.shValue}"/>">취	소</a>
+		<a href="/member/memberList" type="button" class="btn btn-info" style="color:white;" onclick="here()">홈</a>
+		<!-- Button trigger modal -->
+		<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">추	가</button>
+	
+		<!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -78,12 +49,12 @@
 	<hr>
 		<div class="row">
 			<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2" style="margin: auto;">
-				<img style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb">
+				<img style="width: 150px; height: 150px;" class="rounded-circle border border-5">
 			</div>
 			<div class="col-4 col-md-1 mb-2"></div>
 		</div>
 		<div class="col-sm-6 mt-3 mt-sm-0">
-			<label for="file0" class="form-label input-file-button">이미지첨부</label>
+			<label for="file0" class="form-label input-file-button" style="float: left;">이미지첨부</label>
 			<input class="form-control form-control-sm" type="file" id="file0" name="file0">
 		</div>
  		<hr>
@@ -134,8 +105,8 @@
 			<tr>
 				<td style="background-color: #00bfff; color: white;">국적</td>
 				<td colspan="2">
-					<select id="ifnSeq" name="ifnSeq">
-							<option selected>::국적::
+					<select style="float: left;" id="ifnSeq" name="ifnSeq">
+							<option value="0" selected>::국적::
 								<c:forEach items="${selectNation}" var="item" varStatus="status">
 							<option  value="<c:out value="${item.ifnSeq}"/>"><c:out value="${item.ifnName}"/>
 								</c:forEach>
@@ -154,19 +125,20 @@
 					<input type="text" id="sample6_postcode" name="ifmaZipcode" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 					<br><br>
-					<input type="text" id="sample6_extraAddress" name="ifmaAddress2" style="width:500px;" placeholder="상세주소">
-					<input type="text" id="sample6_detailAddress" placeholder="참고항목">
+					<input type="text" id="sample6_extraAddress" name="ifmaAddress2" style="width:500px; float:left;" placeholder="상세주소">
+					<input type="text" id="sample6_detailAddress" style="float: left; margin-left: 10px;" placeholder="참고항목">
 					<br><br>
-					<input type="text" id="ifmaLat" name="ifmaLat" <c:out value="${item.ifmaLat}"/> maxlength="50" placeholder="위도" readonly>
-					<input type="text" id="ifmaLng" name="ifmaLng" <c:out value="${item.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
+					<input type="text" id="ifmaLat" name="ifmaLat" style="float: left;" value="${item.ifmaLat}" maxlength="50" placeholder="위도" readonly>
+					<c:out value="${rt.ifmaLat}"/>
+					<input type="text" id="ifmaLng" name="ifmaLng" style="float: left; margin-left: 10px;" <c:out value="${item.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
 				</td>
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">첨부파일</td>
 				<td colspan="5" class="text-start">
-						<label for="file1" class="form-label input-file-button">파일 첨부</label>
+						<div class="addScroll" style="height: 150px;">
+						<label for="file1" class="form-label input-file-button">파일첨부(Click)</label>
 						<input class="form-control form-control-sm" id="file1" name="file1" onChange="upload(1, 1);" type="file" multiple="multiple" style="display:none;">
-						<div class="addScroll">
 							<ul id="ulFile1" class="list-group"></ul>
 						</div>
 					
@@ -212,20 +184,17 @@
 			var myModal = document.getElementById('myModal')
 			var myInput = document.getElementById('myInput')
 			
-			myModal.addEventListener('shown.bs.modal', function () {
-			  myInput.focus()
-			})
 	</script>
 
 
 	<!-- 이거   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
  -->
-
+	
 	<script href="../_bootstrap/bootstrap-5.1.3-dist/js/bootstrap.bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<script src="../../../../resources/xdmin/js/validation.js"></script> 
+	<script src="/resources/xdmin/js/validation.js"></script> 
 	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
 <!-- 	<script src="/resources/common/js/commonXdmin.js"></script>
@@ -237,7 +206,8 @@
 			if(!checkNull($("#ifmmName"), $("#ifmmName").val(), "이름을 입력해주세요")) return false;
 			if(!checkNull($("#ifmmPassword2"), $("#ifmmPassword2").val(), "비밀번호를 입력해주세요")) return false;
 			if(!checkNull($("#ifmmDob"), $("#ifmmDob").val(), "생일을 입력해주세요")) return false;
-
+			if(!checkNoSelect($("#ifnSeq"),$("#ifnSeq").val(), "국적을 선택해주세요")) return false;
+			}
 			});
 			/*  if(!checkId($("#Id") ) ) return false;
 			if(!checkPassword($("#password") ) ) return false;
@@ -290,20 +260,7 @@
 	</script>
 	
 	
-	
-	<script type="text/javascript">
-	function selectAll(selectAll) {
-				const checkboxes 
-					= document.getElementsByName("checkbox1");
-				
-				checkboxes.forEach((checkbox) => {
-					checkbox.checked = selectAll.checked;
-				})
-			}
 
-	</script>
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	
 	<script type="text/javascript">
@@ -376,6 +333,7 @@
 	        }).open();
 	    }
 	</script>
+	
 	<script type="text/javascript">
 					/* lat and lng from address s */
  				
@@ -463,7 +421,7 @@
 						});
 	});
 </script>
-
+	<!-- 확장자 제한 하는 js  -->
 	<script src="/resources/common/js/checkUpload.js"></script>
 	
 	<script type="text/javascript">
@@ -536,6 +494,30 @@
 				});
 				/* lat and lng from address e */
 				 -->
+				 
+				 
+				 
+ 	<script type="text/javascript">
+			$("#btnLogout").on("click", function() {
+				$.ajax({
+						async: true 
+						,cache: false
+						,type: "post"
+						,url: "/member/logoutProc"
+						,success: function(response) {
+							if(response.rt == "success") {
+								location.href = "/login/loginForm";
+							} else {
+								alert("회원없음");
+							}
+						}
+						,error : function(jqXHR, textStatus, errorThrown){
+							alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+						}
+					});
+			});	
+	</script>
+				 
 	
 </html>
 	

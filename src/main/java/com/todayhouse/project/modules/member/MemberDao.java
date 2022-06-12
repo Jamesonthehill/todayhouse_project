@@ -20,6 +20,7 @@ public class MemberDao {
 	public List<Member> selectList(MemberVo vo){ List<Member> list = sqlSession.selectList(namespace + ".selectList", vo); return list;}
 	public Member selectOne(MemberVo vo) { return sqlSession.selectOne(namespace + ".selectOne", vo);}
 	public Member selectOneLogin(Member dto) { return sqlSession.selectOne(namespace + ".selectOneLogin", dto);}  // 로그인
+	public Member selectOneProfile(Member dto) { return sqlSession.selectOne(namespace + ".selectOneProfile", dto);}  // 프로필
 	public List<Member> selectListNation(){ List<Member> list = sqlSession.selectList(namespace + ".selectListNation", ""); return list;}
 	public Member selectGender(MemberVo vo) { return sqlSession.selectOne(namespace + ".selectGender", vo);}
 	

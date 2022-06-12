@@ -29,13 +29,15 @@ public class MemberController {
 	MemberServiceImpl service; // 프로세스를 관리하는 애
 
 	@RequestMapping(value = "/member/memberList")
-	public String memberList(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
+	public String memberList(@ModelAttribute("vo") MemberVo vo, Member dto, Model model,HttpSession httpSession) throws Exception {
 
 		int count = service.selectOneCount(vo);
 		
 		model.addAttribute("selectOneCount", count);
 		
-//		model.addAttribute("count", service.selectOneCount(vo));
+//		Member item = service.selectOneProfile(dto);
+//		model.addAttribute("item", item);
+
 
 		/*
 		 * vo.setShOptionDate(vo.getShOptionDate() == null ? 1 : vo.getShOptionDate());
@@ -53,6 +55,7 @@ public class MemberController {
 		 * vo.getShDateEnd());
 		 */
 
+		
 		vo.setParamsPaging(count);
 
 		/* vo.setParamsPaging(service.selectOneCount); */
@@ -72,7 +75,23 @@ public class MemberController {
 		return "login/loginForm";
 	}
 	@RequestMapping(value = "/index/indexView")
-	public String indexView(Member dto, Model model) throws Exception {
+	public String indexView(@ModelAttribute("vo") MemberVo vo, Member dto, Model model, HttpSession httpSession) throws Exception {
+		
+		if(vo.getIfmmSeq() != null) {
+			httpSession.setAttribute("sessSeq", vo.getIfmmSeq());
+		}
+		
+//		vo.setIfmmSeq((String) httpSession.getAttribute("sessSeq"));
+//		vo.setIfmmId((String) httpSession.getAttribute("sessId"));
+//		vo.setIfmmName((String) httpSession.getAttribute("sessName"));
+//		vo.setUuidFileName((String) httpSession.getAttribute("uuidFileName"));
+//		
+//		System.out.println("####### 시퀀스, 아이디, 이름 ######## indexView");
+//		System.out.println("vo.getIfmmSeq :" + vo.getIfmmSeq());
+//		System.out.println("vo.getIfmmId :" + vo.getIfmmId());
+//		System.out.println("vo.getIfmmName :" + vo.getIfmmName());
+//		System.out.println("vo.uuidFileName :" + vo.getUuidFileName());
+		
 		
 		return "index/indexView";
 	}
@@ -81,10 +100,20 @@ public class MemberController {
 		
 		return "main/main";
 	}
+	@RequestMapping(value = "/join/joinForm")
+	public String joinForm(Member dto, Model model) throws Exception {
+		
+		return "/join/joinForm";
+	}
+	@RequestMapping(value = "/join/joinForm2")
+	public String joinForm2(Member dto, Model model) throws Exception {
+		
+		return "/join/joinForm2";
+	}
 
 	@RequestMapping(value = "/member/memberForm")
 	public String memberForm(@ModelAttribute("vo") MemberVo vo, Model model) throws Exception {
-		System.out.println("memberForm");
+		System.out.println("####### memberForm #######");
 		System.out.println("dto.thisPage(): " + vo.getThisPage());
 
 		List<Member> selectNation = service.selectListNation();
@@ -115,7 +144,6 @@ public class MemberController {
 		System.out.println("dto.getIfmaLng(): " + dto.getIfmaLng());
 		System.out.println("dto.getOriginalFileName(): " + dto.getOriginalFileName());
 		System.out.println("dto.getUuidFileName(): " + dto.getUuidFileName());
-		/* System.out.println("dto.getIfnName():" + dto.getIfnName()); */
 		System.out.println("dto.getIfnSeq():" + dto.getIfnSeq());
 
 		MultipartFile multipartFile = dto.getFile0(); // 이거 jsp 아이디 네임, member.java에 사용할것을 가져오면됨
@@ -126,8 +154,8 @@ public class MemberController {
 		String uuid = UUID.randomUUID().toString(); // randomUUID() : 유일무의한 이름을 생성하는함수
 		String uuidFileName = uuid + "." + ext; // 유일무의한 값 + . 타입을 붙쳐주면 완성
 
-		multipartFile.transferTo(new File(
-				"C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/uploaded/" + uuidFileName));
+		multipartFile.transferTo(new File(	
+				"C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/user/image/" + uuidFileName));
 
 //		입력 실행
 		dto.setOriginalFileName(fileName); // DB에 넣어주는 코등
@@ -161,13 +189,15 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/member/memberView") // 뷰.jsp에 대한 화면나옴
-	public String MemberView(@ModelAttribute("vo") MemberVo vo, Member dto, Model model) throws Exception {
+	public String MemberView(@ModelAttribute("vo") MemberVo vo, Member dto, Model model, HttpSession httpSession) throws Exception {
 
+		
 		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
 		System.out.println("vo.getThisPage():" + vo.getThisPage());
 		Member rt = service.selectOne(vo);
 
+		
 		// 가지고 온 값을 jsp로 넘겨준다
 		/* Member item = service.selectGender(vo); */
 
@@ -246,7 +276,21 @@ public class MemberController {
 		System.out.println("dto.getIfnSeq():" + dto.getIfnSeq());
 		System.out.println("vo.getThisPage():" + vo.getThisPage());
 		/* System.out.println("vo.getThisPage():" + vo.getThisPage()); */
+		
+		MultipartFile multipartFile = dto.getFile0(); // 이거 jsp 아이디 네임, member.java에 사용할것을 가져오면됨
+		/* MultipartFile multipartFile = dto.getFile1(); */
 
+		String fileName = multipartFile.getOriginalFilename();
+		String ext = fileName.substring(fileName.lastIndexOf(".") + 1); // 입실1.png 중 . 뒤의값 png 값을 ext 담는다.
+		String uuid = UUID.randomUUID().toString(); // randomUUID() : 유일무의한 이름을 생성하는함수
+		String uuidFileName = uuid + "." + ext; // 유일무의한 값 + . 타입을 붙쳐주면 완성
+
+		multipartFile.transferTo(new File(	
+				"C:/factory/ws_sts_4130/todayhouse_project/src/main/webapp/resources/user/image/" + uuidFileName));
+
+//		입력 실행
+		dto.setOriginalFileName(fileName); // DB에 넣어주는 코등
+		dto.setUuidFileName(uuidFileName);
 		/*
 		 * int result = service.insert(dto);
 		 * 
@@ -338,6 +382,7 @@ public class MemberController {
 				httpSession.setAttribute("sessSeq", rtMember2.getIfmmSeq());
 				httpSession.setAttribute("sessId", rtMember2.getIfmmId());
 				httpSession.setAttribute("sessName", rtMember2.getIfmmName());
+				httpSession.setAttribute("uuidFileName", rtMember2.getUuidFileName());
 
 				// rtMember2.setIflgResultNy(1);
 				// service.insertLogLogin(rtMember2);

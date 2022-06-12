@@ -4,7 +4,7 @@
 				font-family: 휴먼모음T;
 			}
 			
-			html, body{
+			html {
     		background-color: whitesmoke;
     		}
 			input {
@@ -19,6 +19,12 @@
 				transition: all 0.3s ease;
 			}
 		
-			input:focus{  /* 테두리 색깔 바뀌는거 주의 hover 선언하면 칸안의 색깔, foucs는 테두리색깔*/ 
-				border-color:   #005baf;
+			.addScroll {
+				overflow-y: auto;
+				height : 90px;
+			}
+			
+			.input-file-button {
+				padding : auto;
+				cursor : pointer;
 			}

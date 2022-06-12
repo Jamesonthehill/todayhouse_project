@@ -14,8 +14,8 @@
 			.aaa{
 				float: left;
 				margin-left: 5px;
-/* 				transform: translateY(20%);
- */			}
+ 				transform: translateY(20%);
+ 			}
 			.bbb {
 				float: right;
 				margin-left: 5px;
@@ -32,4 +32,5 @@
 			.fff{
 				margin: auto;
 			}
+			
 		/* 	   list-style:none;  이거 li 점 없애기 잊지말자*/ 

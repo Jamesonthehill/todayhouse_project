@@ -8,26 +8,12 @@
 <!doctype html>
 <html lang="ko">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="../../../../resources/xdmin/css/memberEdit.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<script src="https://kit.fontawesome.com/b322818db5.js" crossorigin="anonymous"></script>
-<title>인테리어 플랫폼 오늘의 집</title>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid" style="background-color:  #00bfff;">
-    <a class="navbar-brand" href="http://localhost:8070/member/memberList"><image src="../../../../resources/xdmin/image/hoem.png" width="100px" height="50px"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  </div>
-</nav>
-
+	<link rel="stylesheet"	href="/resources/xdmin/css/memberEdit.css">
+				<!-- include 처리 1번 -->
+			<%@include file="../include/pageHeader.jsp"%>
 </head>
 
-<body style="float: center;">
+<body style="width: 1080px;">
 <form id="formList" name="formList" method="POST">
 	<%-- <input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">  --%>
 	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${rt.ifmmSeq}"/>">
@@ -38,7 +24,7 @@
 		</h1>
 	<hr>
 	<!-- Button trigger modal -->
-	<a class="btn btn-secondary" href="javascript:goView(<c:out value="${rt.ifmmSeq}"/>)">취	소</a>
+	<a class="btn btn-secondary" style="margin-left: 10px" href="javascript:goView(<c:out value="${rt.ifmmSeq}"/>)">취	소</a>
 	<a href="/member/memberList" type="button" class="btn btn-info" style="color:white;" onclick="here()">홈</a>
 	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">저	장</button>
 
@@ -66,15 +52,24 @@
 
 
 	<hr>
-	<div>
-		<div class="row">
 			<div class="col-2 col-md-1 mb-2 p-0 text-end pe-2" style="margin: auto;">
-				<img src="/resources/uploaded/<c:out value="${rt.uuidFileName}"/>" style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb">
+				<c:choose>
+							<c:when test="${empty rt.uuidFileName}">
+								<img style="width: 150px; height: 150px;" src="/resources/user/image/profileDefault.png" class="rounded-circle border border-5" alt="">
+							</c:when>
+							<c:otherwise>
+								<img style="width: 150px; height: 150px;" src="/resources/user/image/<c:out value="${rt.uuidFileName}"/>" class="rounded-circle border border-5" alt="">
+							</c:otherwise>
+						</c:choose>
+				<%-- <img src="/resources/uploaded/<c:out value="${rt.uuidFileName}"/>" style="width: 150px; height: 150px;" class="rounded-circle border border-5 bbb"> --%>
 			</div>
-			<div class="col-4 col-md-1 mb-2"></div>
+		<br><br>
+		<!-- problem1 -->
+		<div class="col-sm-6 mt-3 mt-sm-0">
+			<label for="file0" class="form-label input-file-button" style="float: left;">이미지첨부</label>
+			<input class="form-control form-control-sm" type="file" id="file0" name="file0" value="<c:out value="${rt.originalFileName}"/>">
 		</div>
-
-
+	<br>
 		<table class="table table-hover">
 			<tr>
 				<td rowspan="7"
@@ -153,9 +148,8 @@
 					<input type="text" id="ifmaLng" name="ifmaLng" value="${rt.ifmaLng}" <c:out value="${rt.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
 				</td>
 			</tr>
-
-<!-- 		
 		</table>
+<!-- 		
 	</div>
 	<div style="height: 10px;"></div>
 		<table class="table table-hover">
@@ -341,5 +335,45 @@
 	});
 	</script>
 	
+		<script type="text/javascript">
+	$("#btnLogout").on("click", function() {
+		$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/logoutProc"
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/login/loginForm";
+					} else {
+						alert("회원없음");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+	});	
+	</script>
+	<script type="text/javascript">
+	$("#btnLogout").on("click", function() {
+		$.ajax({
+				async: true 
+				,cache: false
+				,type: "post"
+				,url: "/member/logoutProc"
+				,success: function(response) {
+					if(response.rt == "success") {
+						location.href = "/login/loginForm";
+					} else {
+						alert("회원없음");
+					}
+				}
+				,error : function(jqXHR, textStatus, errorThrown){
+					alert("ajaxUpdate " + jqXHR.textStatus + " : " + jqXHR.errorThrown);
+				}
+			});
+	});	
+	</script>
 
 </html>
