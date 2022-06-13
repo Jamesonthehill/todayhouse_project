@@ -107,7 +107,7 @@
 
 				<tr>
 					<td style="background-color: #00bfff; color: white;">생일</td>
-					<td colspan="2"><c:out value="${rt.ifmmDob}" /></td>
+					<td colspan="2"><c:out value="${rt.ifmmDob}"  /></td>
 					<td style="background-color: #00bfff; color: white;">휴대폰</td>
 					<td><c:out value="${rt.ifmpNumber}" /></td>
 				</tr>

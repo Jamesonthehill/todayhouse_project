@@ -103,12 +103,18 @@ public class MemberController {
 	@RequestMapping(value = "/join/joinForm")
 	public String joinForm(Member dto, Model model) throws Exception {
 		
-		return "/join/joinForm";
+		return "join/joinForm";
 	}
 	@RequestMapping(value = "/join/joinForm2")
 	public String joinForm2(Member dto, Model model) throws Exception {
 		
-		return "/join/joinForm2";
+		return "join/joinForm2";
+	}
+	
+	@RequestMapping(value = "/member/loginTest")
+	public String loginTest(Member dto, Model model) throws Exception {
+		
+		return "member/loginTest";
 	}
 
 	@RequestMapping(value = "/member/memberForm")
@@ -195,6 +201,7 @@ public class MemberController {
 		System.out.println("vo.getIfmmSeq():" + vo.getIfmmSeq());
 		// 디비까지 가서 한 건의 데이터 값을 가지고 온다 , vo
 		System.out.println("vo.getThisPage():" + vo.getThisPage());
+		
 		Member rt = service.selectOne(vo);
 
 		
@@ -236,6 +243,7 @@ public class MemberController {
 		Member rt = service.selectOne(vo); // vo 에서 데이터 가져오기
 
 		model.addAttribute("rt", rt); // jsp 들어가보면 list, item, rt 등등있는데 거기에 이름과 동일한 곳에 데이터를 넣겠다.
+		
 		return "member/memberEdit";
 	}
 
@@ -291,13 +299,11 @@ public class MemberController {
 //		입력 실행
 		dto.setOriginalFileName(fileName); // DB에 넣어주는 코등
 		dto.setUuidFileName(uuidFileName);
-		/*
-		 * int result = service.insert(dto);
-		 * 
-		 * System.out.println("result: " + result);
-		 */
-		service.update(dto); // 데이터를 받아오고 얘가 redirect보다 위에있어야 순서가 맞음.
+		
+		int result2 = service.update(dto); // 데이터를 받아오고 얘가 redirect보다 위에있어야 순서가 맞음.
 
+		System.out.println("result2: " + result2);
+		
 		vo.setIfmmSeq(dto.getIfmmSeq());
 
 		redirectAttributes.addFlashAttribute("vo", vo);

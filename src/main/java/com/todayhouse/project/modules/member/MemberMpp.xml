@@ -209,8 +209,7 @@
 		,ifmmGenderCd = #{ifmmGenderCd}
 		,ifmmEmailConsentNy = #{ifmmEmailConsentNy}
 		,ifmmId = #{ifmmId}
-		,ifmmPassword = #{ifmmPassword} <!-- 여기다 여러개 넣으면 여러개 수정 함께 가능 -->
-		,regDateTime = #{regDateTime}
+		,ifmmPassword = #{ifmmPassword} 
 		,originalFileName = #{originalFileName}
 		,uuidFileName = #{uuidFileName}
 		WHERE

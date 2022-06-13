@@ -16,7 +16,7 @@ public class Member {
 	private String ifmmPassword2;
 	private Integer totalMember;
 	/* @DateTimeFormat(pattern = "yyyy-MM-dd") */ // Date 타입이 스트링으로 바뀌어들어감
-	private String ifmmDob;
+	private Date ifmmDob;
 	private String ifmmGenderCd;
 	private String ifcdName;
 	private String ifmmEmailConsentNy;
@@ -29,6 +29,9 @@ public class Member {
 	private String ifmmPwdInvalidFeedBack;
 	private String ifmmPwdConfirmValidFeedBack;
 	private String ifmmPwdConfirmInvalidFeedBack;
+	private Double[] ifmaLatArray;
+	private Double[] ifmaLngArray;
+	
 	
 	
 	private Date regDateTime;
@@ -51,8 +54,8 @@ public class Member {
 // codeGroup 	
 	private String originalFileName;
 	private String uuidFileName;
-	public MultipartFile file0;
-	public MultipartFile file1;
+	public MultipartFile[] file0;
+	public MultipartFile[] file1;
 	
 	
 //------------
@@ -90,14 +93,13 @@ public class Member {
 	}
 	
 	
-	public String getIfmmDob() {
+	
+	public Date getIfmmDob() {
 		return ifmmDob;
 	}
-	public void setIfmmDob(String ifmmDob) {
+	public void setIfmmDob(Date ifmmDob) {
 		this.ifmmDob = ifmmDob;
 	}
-	
-	
 	public Date getRegDateTime() {
 		return regDateTime;
 	}
@@ -200,6 +202,7 @@ public class Member {
 	public void setIfmaLng(Double ifmaLng) {
 		this.ifmaLng = ifmaLng;
 	}
+	
 	public String getIfcdName() {
 		return ifcdName;
 	}
@@ -274,6 +277,19 @@ public class Member {
 	}
 	public void setIfmmPwdConfirmInvalidFeedBack(String ifmmPwdConfirmInvalidFeedBack) {
 		this.ifmmPwdConfirmInvalidFeedBack = ifmmPwdConfirmInvalidFeedBack;
+	}
+	
+	public Double[] getIfmaLatArray() {
+		return ifmaLatArray;
+	}
+	public void setIfmaLatArray(Double[] ifmaLatArray) {
+		this.ifmaLatArray = ifmaLatArray;
+	}
+	public Double[] getIfmaLngArray() {
+		return ifmaLngArray;
+	}
+	public void setIfmaLngArray(Double[] ifmaLngArray) {
+		this.ifmaLngArray = ifmaLngArray;
 	}
 	public String getOriginalFileName() {
 		return originalFileName;

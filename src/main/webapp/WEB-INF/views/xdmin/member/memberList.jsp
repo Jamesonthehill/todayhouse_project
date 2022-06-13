@@ -31,7 +31,7 @@
 				<!-- sm-2 반응형, p-1~10 박스크기, pt-위쪽,왼쪽으로부터)얼마나 띄워쓸것인지 위치 -->
 				<div class="col-sm-2 p-2 pb-3">
 					<select class="form-select" name="shOptionDate">
-						<option value="">::날짜::</option>
+						<option value="0">::날짜::</option>
 						<option value="1"
 							<c:if test="${vo.shOptionDate eq 1}">selected</c:if>>최초가입날짜</option>
 					</select>
@@ -99,21 +99,13 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th scope="col" style="background-color: #00bfff;"
-					style="color: white;">no</th>
-				<th scope="col" style="background-color: #00bfff;"
-					style="color: white;"><input type="checkbox" id="checkboxAll"
-					name="" value="" class="form-check-input"> 전체선택
-				<th scope="col" style="background-color: #00bfff;"
-					style="color: white;">이름</th>
-				<th scope="col" style="background-color: #00bfff;"
-					style="font-family: white;">아이디</th>
-				<th scope="col" style="background-color: #00bfff;"
-					style="font-family: white;">연락처</th>
-				<th scope="col" style="background-color: #00bfff;"
-					style="font-family: white;">이메일</th>
-				<th scope="col" style="background-color: #00bfff;"
-					style="font-family: white;">가입날짜</th>
+				<th scope="col" style="background-color: #00bfff;"					style="color: white;">no</th>
+				<th scope="col" style="background-color: #00bfff;"					style="color: white;"><input type="checkbox" id="checkboxAll"					name="" value="" class="form-check-input"> 전체선택
+				<th scope="col" style="background-color: #00bfff;"					style="color: white;">이름</th>
+				<th scope="col" style="background-color: #00bfff;"					style="font-family: white;">아이디</th>
+				<th scope="col" style="background-color: #00bfff;"					style="font-family: white;">연락처</th>
+				<th scope="col" style="background-color: #00bfff;"					style="font-family: white;">이메일</th>
+				<th scope="col" style="background-color: #00bfff;"					style="font-family: white;">가입날짜</th>
 
 			</tr>
 		</thead>
@@ -121,18 +113,14 @@
 			<c:forEach items="${list}" var="item" varStatus="status">
 				<tr>
 					<th scope="row"><c:out value="${item.ifmmSeq}" /></th>
-					<td><input type="checkbox" id="checkboxSeq" name="checkboxSeq"
-						value="<c:out value="${item.ifmmSeq}"/>" class="form-check-input"></td>
-					<td><a
-						href="javascript:goView(<c:out value="${item.ifmmSeq}"/>)"><c:out
-								value="${item.ifmmName}" /></a></td>
+					<td><input type="checkbox" id="checkboxSeq" name="checkboxSeq"						value="<c:out value="${item.ifmmSeq}"/>" class="form-check-input"></td>
+					<td><a						href="javascript:goView(<c:out value="${item.ifmmSeq}"/>)"><c:out								value="${item.ifmmName}" /></a></td>
 					<td><c:out value="${item.ifmmId}" /></td>
 					<!-- 아이디 -->
 					<td><c:out value="${item.ifmpNumber}" /></td>
 					<!-- 연락처  -->
 					<td><c:out value="${item.ifmeEmailFull}" /></td>
-					<td><fmt:formatDate value="${item.regDateTime}"
-							pattern="yyyy-MM-dd" /></td>
+					<td><fmt:formatDate value="${item.regDateTime}"	pattern="yyyy-MM-dd" /></td>
 					<%--       <td><a href="/member/memberView?ifmmSeq=<c:out value="${item.ifmmSeq}"/>&thisPage=<c:out value="${vo.thisPage}"/>">상세보기</a></td> <!--  memberView 앞에 / 썻다가 2시간 삽질 -->
  --%>
 				</tr>

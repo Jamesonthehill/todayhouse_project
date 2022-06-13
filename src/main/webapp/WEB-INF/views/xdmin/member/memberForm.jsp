@@ -121,15 +121,14 @@
 			<tr>
 				<td style="background-color: #00bfff; color: white;">주 소</td>
 				<td colspan="5">
-					<input type="text" style="width:500px;" id="sample6_address" name="ifmaAddress1" placeholder="주소" >
+					<input type="text" style="width:500px;" id="sample6_address" name="ifmaAddress1" placeholder="주소" disabled >
 					<input type="text" id="sample6_postcode" name="ifmaZipcode" placeholder="우편번호">
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 					<br><br>
 					<input type="text" id="sample6_extraAddress" name="ifmaAddress2" style="width:500px; float:left;" placeholder="상세주소">
 					<input type="text" id="sample6_detailAddress" style="float: left; margin-left: 10px;" placeholder="참고항목">
 					<br><br>
-					<input type="text" id="ifmaLat" name="ifmaLat" style="float: left;" value="${item.ifmaLat}" maxlength="50" placeholder="위도" readonly>
-					<c:out value="${rt.ifmaLat}"/>
+					<input type="text" id="ifmaLat" name="ifmaLat" style="float: left;" value="<c:out value="${item.ifmaLat}"/>" maxlength="50" placeholder="위도" readonly>
 					<input type="text" id="ifmaLng" name="ifmaLng" style="float: left; margin-left: 10px;" <c:out value="${item.ifmaLng}"/> maxlength="50" placeholder="경도" readonly>
 				</td>
 			</tr>
@@ -169,9 +168,7 @@
 			<td><input class="form-control me-2" type="date" ></td>
 			<td><input class="form-control me-2" type="text" id="" name="" ></td>
 		</tr>
-
 	</table>
-
 	<div style="height: 10px;"></div>
  -->
 	
@@ -196,7 +193,7 @@
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
 	<script src="/resources/xdmin/js/validation.js"></script> 
 	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
+	
 <!-- 	<script src="/resources/common/js/commonXdmin.js"></script>
 	<script src="/resources/common/js/constantsXdmin.js"></script> 그거 다운로드 하는데 필요한 함수들이엇음
 	<script src="/resources/common/js/common.js"></script> -->
@@ -224,7 +221,6 @@
 	$(document).ready(function(){
 		 $("input.shDate").datepicker();
 	}); 
-
 	$.datepicker.setDefaults({
 	    dateFormat: 'yy-mm-dd',
 	    prevText: '이전 달',
@@ -260,8 +256,8 @@
 	</script>
 	
 	
-
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
 	
 	<script type="text/javascript">
 /* 	var address = document.getElementById("address");
@@ -315,28 +311,31 @@
 	                document.getElementById("sample6_address").value = addr;
 	                // 커서를 상세주소 필드로 이동한다.
 	                document.getElementById("sample6_detailAddress").focus();
+	
 	                
-					// 주소-좌표 변환 객체를 생성
+	                
+/* 	             // 주소-좌표 변환 객체를 생성
 	                var geocoder = new daum.maps.services.Geocoder();
 					
 					geocoder.addressSearch(addr, function(result, status){
 						
 						if (status == daum.maps.services.Status.OK) {
+							
+							
 							document.getElementById("ifmaLat").value = result[0].y;
 							document.getElementById("ifmaLng").value = result[0].x;
-						}
+						} 
 						
-					});
-					
+					}); */
 					
 				}
+	        
 	        }).open();
 	    }
 	</script>
 	
 	<script type="text/javascript">
 					/* lat and lng from address s */
- 				
 				// 주소-좌표 변환 객체를 생성
 				var geocoder = new daum.maps.services.Geocoder();
 				
@@ -520,4 +519,3 @@
 				 
 	
 </html>
-	

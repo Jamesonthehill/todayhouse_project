@@ -14,14 +14,12 @@
 </head>
 
 <body style="width: 1080px;">
-<form id="formList" name="formList" method="POST">
+<form id="formList" name="formList" method="POST" enctype="multipart/form-data">
 	<%-- <input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}" default="1"/>">  --%>
 	<input type="hidden" id="ifmmSeq" name="ifmmSeq" value="<c:out value="${rt.ifmmSeq}"/>">
 	<input type="hidden" id="thisPage" name="thisPage" value="<c:out value="${vo.thisPage}"/>">
 	
-		<h1 style="text-align: center;">
-			회원정보수정
-		</h1>
+		<h1 style="text-align: center;">회원정보수정</h1>
 	<hr>
 	<!-- Button trigger modal -->
 	<a class="btn btn-secondary" style="margin-left: 10px" href="javascript:goView(<c:out value="${rt.ifmmSeq}"/>)">취	소</a>
@@ -67,7 +65,10 @@
 		<!-- problem1 -->
 		<div class="col-sm-6 mt-3 mt-sm-0">
 			<label for="file0" class="form-label input-file-button" style="float: left;">이미지첨부</label>
-			<input class="form-control form-control-sm" type="file" id="file0" name="file0" value="<c:out value="${rt.originalFileName}"/>">
+			<input class="form-control form-control-sm" type="file" id="file0" name="file0">
+			<br>
+			<label for="" class="form-label input-file-button" style="float: left;">현재파일</label>
+			<input class="form-control"  type="text" value="${rt.originalFileName}" disabled>
 		</div>
 	<br>
 		<table class="table table-hover">
@@ -93,16 +94,17 @@
 				<td colspan="2"><input class="form-control me-2" type="text" id="ifmmId" name="ifmmId" value="${rt.ifmmId}" autocomplete="off"></td>
 				<td style="background-color: #00bfff; color: white;">성별</td>
 				<td>
-				<%-- <c:when test="${rt.ifmmGenderCd eq '남성' }"><input type="radio" id="ifmmGenderCd" name="ifmmGenderCd"  checked >&nbsp남</c:when>
-				<c:when test="${rt.ifmmGenderCd eq '여성' }"><input type="radio" id="ifmmGenderCd" name="ifmmGenderCd"  checked>&nbsp여</c:when>
---%>				
+				<c:choose>
+				<c:when test="${rt.ifmmGenderCd eq '남성' }"><input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" checked >&nbsp남<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" >&nbsp여</c:when>
+				<c:otherwise><input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" >&nbsp남&nbsp<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" checked >&nbsp여</c:otherwise>
+				</c:choose>
 			<!-- 		<td style="background-color: #00bfff; color: white;">성별</td>
 				<td>
 				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="3" >&nbsp남
 				<input type="radio" id="ifmmGenderCd" name="ifmmGenderCd" value="4">&nbsp여</td> -->
-				<input type="radio"  id="ifmmGenderCd" name="ifmmGenderCd"  value="3">&nbsp남
-				<input type="radio"  id="ifmmGenderCd" name="ifmmGenderCd"  value="4">&nbsp여
-				</td>
+<!-- 				<input type="radio"  id="ifmmGenderCd" name="ifmmGenderCd"  value="3">&nbsp남
+				<input type="radio"  id="ifmmGenderCd" name="ifmmGenderCd"  value="4">&nbsp여-->
+ 				</td>
 			</tr>
 			<tr>
 				<td style="background-color: #00bfff; color: white;">E-Mail</td>
@@ -117,9 +119,9 @@
 				<td style="background-color: #00bfff; color: white;">국적</td>
 				<td colspan="2">
 					<select id="ifnSeq" name="ifnSeq">
-							<option>::국적::
+							<option value="0">::국적::
 								<c:forEach items="${selectNation}" var="item" varStatus="status">
-							<option <c:if test="${rt.ifnSeq eq 'rt.ifnSeq'}">selected</c:if>value="<c:out value="${item.ifnSeq}"/>"><c:out value="${item.ifnName}"/>
+							<option selected <c:if test="${rt.ifnSeq eq 'rt.ifnSeq'}">selected</c:if>value="<c:out value="${item.ifnSeq}"/>"><c:out value="${item.ifnName}"/>
 								</c:forEach>
 					</select></td>
 				<td style="background-color: #00bfff; color: white;">휴대폰</td>
@@ -185,7 +187,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.js"></script>
-	<script src="../../../../resources/xdmin/js/validation.js"></script> 
+	<script src="/resources/xdmin/js/validation.js"></script> 
 	<link href="/resources/common/jquery/jquery-ui-1.13.1.custom/jquery-ui.css" rel="stylesheet"/>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0729e498fb15ebd0272704ad5ebba933&libraries=services"></script>
 	
@@ -198,7 +200,7 @@
 			if(!checkNull($("#ifmmId"), $("#ifmmId").val(), "아이디를 입력해주세요")) return false;
 			if(!checkNull($("#ifmpNumber"), $("#ifmpNumber").val(), "번호를 입력해주세요")) return false;
 			if(!checkNull($("#ifmeEmailFull"), $("#ifmeEmailFull").val(), "이메일을 입력해주세요")) return false;
-
+			if(!checkNoSelect($("#ifnSeq"),$("#ifnSeq").val(), "국적을 선택해주세요")) return false;
 			});	
 			/* if(!checkId($("#Id") ) ) return false;
 			if(!checkPassword($("#password") ) ) return false;
@@ -235,6 +237,7 @@
 		$("#formList").submit();
 	};
 	goView = function(seq){
+		$("#ifmmSeq").val(seq);
 		$("#formList").attr("action", "/member/memberView");
 		$("#formList").submit();
 	};
