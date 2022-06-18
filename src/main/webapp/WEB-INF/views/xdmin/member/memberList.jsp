@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="rb" uri="http://www.springframework.org/tags"%>
 
-
+ 
 
 
 <!doctype html>
@@ -86,13 +86,12 @@
 			</button>
 		</div>
 	</form>
-
+<!-- 
 	<button class="btn btn-success my-2 bbb">
 		<i class="fas fa-file-excel"></i>
 	</button>
 
-	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()"><i
-		class="fas fa-user-plus"></i></a>
+ -->	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()" style="margin-right: 10px;"><i class="fas fa-user-plus"></i></a>
 	<div class="aaa">
 		<p>총회원수: ${selectOneCount } 명</p>
 	</div>
