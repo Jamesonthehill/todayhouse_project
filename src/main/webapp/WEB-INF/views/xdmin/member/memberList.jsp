@@ -86,12 +86,12 @@
 			</button>
 		</div>
 	</form>
-<!-- 
-	<button class="btn btn-success my-2 bbb">
+
+	<button class="btn btn-success my-2 bbb" id="apple">
 		<i class="fas fa-file-excel"></i>
 	</button>
 
- -->	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()" style="margin-right: 10px;"><i class="fas fa-user-plus"></i></a>
+	<a class="btn btn-primary my-2 bbb" href="javascript:goForm()" style="margin-right: 10px;"><i class="fas fa-user-plus"></i></a>
 	<div class="aaa">
 		<p>총회원수: ${selectOneCount } 명</p>
 	</div>
@@ -162,7 +162,7 @@
 		style="width: 1280px; margin: auto;">*회원자료 삭제시 다른 회원이 회원아이디를
 		사용하지 못하도록 회원아이디, 이름은 삭제 하지 않고 영구 보관합니다.</div>
 	<br>
-	<form id="" name="" method="get" action="/member/memberList">
+	<form id="ban" name="ban" method="get" action="/member/memberList">
 		<nav aria-label="Page navigation example">
 			<div class="ddd">
 				<ul class="pagination">
@@ -353,6 +353,10 @@
 				}
 			});
 	});	
+	
+	$("#apple").click(function() {
+		$("#ban").attr("action", "/member/excelDownload").submit();
+	});
 	</script>
-
+	
 </html>
