@@ -13,7 +13,7 @@
 <head>
 <link rel="stylesheet"	href="/resources/user/css/memberList.css">
 
-
+ 
 						<!-- include 처리 3번 -->
 					<%@include file="../include/pageHeader.jsp"%>
 </head>
