@@ -8,7 +8,7 @@
  
 
  
-<!doctype html>
+<!doctype html> 
 <html lang="ko">
 <head>
 <link rel="stylesheet"	href="/resources/user/css/memberList.css">
